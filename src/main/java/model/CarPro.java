@@ -1,7 +1,7 @@
 package model;
 
 
-public class Customer {
+public class Carrello {
   private String firstName;
   private String lastName;
   private int id;
