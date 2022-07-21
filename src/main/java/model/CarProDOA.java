@@ -6,19 +6,19 @@ import java.sql.*;
  * A small table of banking customers for testing.
  */
 
-public class CarrelloDAO {
+public class CarProDOA {
     /**
      * Finds the customer with the given ID.
      * Returns null if there is no match.
      */
-    public Carrello doRetrieveById(int id) {
+    public CarPro doRetrieveByCart(int cart) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
-                    con.prepareStatement("SELECT id, firstName, lastName, balance FROM customer WHERE id=?");
-            ps.setInt(1, id);
+                    con.prepareStatement("SELECT cart, prod, quantita FROM carpro WHERE cart=?");
+            ps.setInt(1, cart);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                Customer p = new Customer();
+                CarPro p = new CarPro();
                 p.setId(rs.getInt(1));
                 p.setFirstName(rs.getString(2));
                 p.setLastName(rs.getString(3));

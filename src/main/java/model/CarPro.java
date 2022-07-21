@@ -1,48 +1,33 @@
 package model;
 
 
-public class Carrello {
-  private String firstName;
-  private String lastName;
-  private int id;
-  private double balance, balanceNoSign;
+public class CarPro {
+  private int cart;
+  private int prod;
+  private int quantita;
 
-  
-  public int getId() {
-    return id;
+  public int getCart() {
+    return cart;
   }
 
-  public String getFirstName() {
-    return(firstName);
+  public int getProd() {
+    return(prod);
   }
 
-  public String getLastName() {
-    return(lastName);
-  }
-
-  public double getBalance() {
-    return(balance);
-  }
-
-  public double getBalanceNoSign() {
-    return((balance<0)?-balance:balance);
+  public int getQuantita() {
+    return(quantita);
   }
 
 
-  public void setId(int id) {
-    this.id = id;
+  public void setCart(int cart) {
+    this.cart = cart;
   }
 
-  public void setBalance(double balance) {
-    this.balance = balance;
+  public void setBalance(int prod) {
+    this.prod = prod;
   }
 
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
-  }
-
-  public void setFirstName(String firstName) {
-    this.firstName = firstName;
+  public void setLastName(int quantita) {
+    this.quantita = quantita;
   }
 }
-  

@@ -1,7 +1,7 @@
 package model;
 
 
-public class Carrello {
+public class OrdPro {
   private String firstName;
   private String lastName;
   private int id;
