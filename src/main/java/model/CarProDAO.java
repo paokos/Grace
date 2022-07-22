@@ -6,23 +6,22 @@ import java.sql.*;
  * A small table of banking customers for testing.
  */
 
-public class CarProDOA {
+public class CarProDAO {
     /**
      * Finds the customer with the given ID.
      * Returns null if there is no match.
      */
-    public CarPro doRetrieveByCart(int cart) {
+    public CarPro doRetrieveByCart(Carrello c) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
                     con.prepareStatement("SELECT cart, prod, quantita FROM carpro WHERE cart=?");
-            ps.setInt(1, cart);
+            ps.setInt(1, c.getId());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 CarPro p = new CarPro();
-                p.setId(rs.getInt(1));
-                p.setFirstName(rs.getString(2));
-                p.setLastName(rs.getString(3));
-                p.setBalance(rs.getDouble(4));
+                p.setCart(rs.getInt(1));
+                p.setProd(rs.getInt(2));
+                p.setQuantita(rs.getInt(3));
                 return p;
             }
             return null;
@@ -31,29 +30,17 @@ public class CarProDOA {
         }
     }
 
-
-
-
-    // la funzione seguente � inutile perch� il DB � riempito tramite tool esterno
-    // sarebbe utile se l'applicazione fornisse un form per riempirlo. IDEA! aggiungi questa feature all'applicazione
-    // � un buon modo per verificare la sua correttezza
-
-    public void doSave(Carrello cart) {
+    public void doSave(CarPro cp) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
-                    "INSERT INTO customer (firstName, lastName, balance) VALUES(?,?,?)",
+                    "INSERT INTO carpro (cart, prod, quantita) VALUES(?,?,?)",
                     Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, customer.getFirstName());
-            ps.setString(2, customer.getLastName());
-            ps.setDouble(3, customer.getBalance());
+            ps.setInt(1, cp.getCart());
+            ps.setInt(2, cp.getProd());
+            ps.setInt(3, cp.getQuantita());
             if (ps.executeUpdate() != 1) {
                 throw new RuntimeException("INSERT error.");
             }
-            ResultSet rs = ps.getGeneratedKeys();
-            rs.next();
-            int id = rs.getInt(1);
-            customer.setId(id);
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

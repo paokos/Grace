@@ -1,6 +1,8 @@
 package model;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A small table of banking customers for testing.
@@ -14,18 +16,20 @@ public class ProdottoDAO {
      * Returns null if there is no match.
      */
 
-    public Customer doRetrieveById(int id) {
+    public Prodotto doRetrieveById(int id) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
-                    con.prepareStatement("SELECT id, firstName, lastName, balance FROM customer WHERE id=?");
+                    con.prepareStatement("SELECT codice, nome, prezzo, colore, taglia, imgsrc FROM prodotto WHERE codice=?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                Customer p = new Customer();
-                p.setId(rs.getInt(1));
-                p.setFirstName(rs.getString(2));
-                p.setLastName(rs.getString(3));
-                p.setBalance(rs.getDouble(4));
+                Prodotto p = new Prodotto();
+                p.setCodice(rs.getInt(1));
+                p.setNome(rs.getString(2));
+                p.setPrezzo(rs.getDouble(3));
+                p.setColore(rs.getString(4));
+                p.setTaglia(rs.getString(5));
+                p.setImgsrc(rs.getString(6));
                 return p;
             }
             return null;
@@ -34,34 +38,96 @@ public class ProdottoDAO {
         }
     }
 
+    public List<Prodotto> doRetrieveAll() {
+        ArrayList<Prodotto> prodotti = new ArrayList<>();
+        Statement st;
+        ResultSet rs;
+        Prodotto p;
+        try (Connection con = ConPool.getConnection()) {
+            st= con.createStatement();
+            rs=st.executeQuery("SELECT codice, nome, prezzo, colore, taglia, imgsrc FROM prodotto LIMIT 0,10");
+            while (rs.next()) {
+                p = new Prodotto();
+                p.setCodice(rs.getInt(1));
+                p.setNome(rs.getString(2));
+                p.setPrezzo(rs.getDouble(3));
+                p.setColore(rs.getString(4));
+                p.setTaglia(rs.getString(5));
+                p.setImgsrc(rs.getString(6));
+                prodotti.add(p);
+            }
+            con.close();
+            return prodotti;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
+    public List<Prodotto> doRetrieveByCategoria(Categoria c) {
+        ArrayList<Prodotto> prodotti = new ArrayList<>();
+        ResultSet rs;
+        Prodotto p;
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps =
+                    con.prepareStatement("SELECT codice, nome, prezzo, colore, taglia, imgsrc FROM prodotto WHERE codice in " +
+                    "(SELECT prod FROM procat WHERE cat=?) LIMIT 0,10");
+            ps.setInt(1, c.getId());
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                p = new Prodotto();
+                p.setCodice(rs.getInt(1));
+                p.setNome(rs.getString(2));
+                p.setPrezzo(rs.getDouble(3));
+                p.setColore(rs.getString(4));
+                p.setTaglia(rs.getString(5));
+                p.setImgsrc(rs.getString(6));
+                prodotti.add(p);
+            }
+            con.close();
+            return prodotti;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-    // la funzione seguente � inutile perch� il DB � riempito tramite tool esterno
-    // sarebbe utile se l'applicazione fornisse un form per riempirlo. IDEA! aggiungi questa feature all'applicazione
-    // � un buon modo per verificare la sua correttezza
 
-    public void doSave(Customer customer) {
+    public void doSave(Prodotto prodotto) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
-                    "INSERT INTO customer (firstName, lastName, balance) VALUES(?,?,?)",
+                    "INSERT INTO customer (nome, prezzo, colore, taglia, imgsrc) VALUES(?,?,?,?,?)",
                     Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, customer.getFirstName());
-            ps.setString(2, customer.getLastName());
-            ps.setDouble(3, customer.getBalance());
+            ps.setString(1, prodotto.getNome());
+            ps.setDouble(2, prodotto.getPrezzo());
+            ps.setString(3, prodotto.getColore());
+            ps.setString(4, prodotto.getTaglia());
+            ps.setString(5, prodotto.getImgsrc());
             if (ps.executeUpdate() != 1) {
                 throw new RuntimeException("INSERT error.");
             }
             ResultSet rs = ps.getGeneratedKeys();
             rs.next();
             int id = rs.getInt(1);
-            customer.setId(id);
+            prodotto.setCodice(id);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
+    public void doUpdateProdotto(Prodotto p){
+
+        try (Connection con = ConPool.getConnection()) {
+            Statement st = con.createStatement();
+//            nome, prezzo, colore, taglia, imgsrc
+            String query = "update Prodotto set nome='" + p.getNome() + "', prezzo=" +
+                    p.getPrezzo() + ", colore='" + p.getColore() + "', taglia='"+ p.getTaglia()+"', imgsrc='"+ p.getImgsrc() + "' where codice=" + p.getCodice() + ";";
+            st.executeUpdate(query);
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }
 

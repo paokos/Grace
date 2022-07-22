@@ -6,7 +6,7 @@ import java.sql.*;
  * A small table of banking customers for testing.
  */
 
-public class OrdProDOA {
+public class OrdProDAO {
     /**
      * Finds the customer with the given ID.
      * Returns null if there is no match.
