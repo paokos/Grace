@@ -23,11 +23,11 @@ public class CarPro {
     this.cart = cart;
   }
 
-  public void setBalance(int prod) {
+  public void setProd(int prod) {
     this.prod = prod;
   }
 
-  public void setLastName(int quantita) {
+  public void setQuantita(int quantita) {
     this.quantita = quantita;
   }
 }

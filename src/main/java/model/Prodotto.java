@@ -2,47 +2,57 @@ package model;
 
 
 public class Prodotto {
-  private String firstName;
-  private String lastName;
-  private int id;
-  private double balance, balanceNoSign;
+  private int codice;
+  private String nome;
+  private double prezzo;
+  private String colore;
+  private String taglia;
+  private String imgsrc;
 
-  
-  public int getId() {
-    return id;
+
+  public int getCodice() {
+    return codice;
   }
 
-  public String getFirstName() {
-    return(firstName);
+  public String getNome() {
+    return(nome);
   }
 
-  public String getLastName() {
-    return(lastName);
+  public double getPrezzo() {
+    return(prezzo);
   }
 
-  public double getBalance() {
-    return(balance);
+  public String getColore() {
+    return(colore);
+  }
+  public String getTaglia() {
+    return(taglia);
+  }
+  public String getImgsrc() {
+    return(imgsrc);
   }
 
-  public double getBalanceNoSign() {
-    return((balance<0)?-balance:balance);
+
+  public void setCodice(int codice) {
+    this.codice = codice;
   }
 
-
-  public void setId(int id) {
-    this.id = id;
+  public void setPrezzo(double prezzo) {
+    this.prezzo = prezzo;
   }
 
-  public void setBalance(double balance) {
-    this.balance = balance;
+  public void setNome(String nome) {
+    this.nome = nome;
   }
 
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
+  public void setColore(String colore) {
+    this.colore = colore;
   }
-
-  public void setFirstName(String firstName) {
-    this.firstName = firstName;
+  public void setTaglia(String taglia) {
+    this.taglia = taglia;
+  }
+  public void setImgsrc(String imgsrc) {
+    this.imgsrc = imgsrc;
   }
 }
-  
+

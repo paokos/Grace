@@ -2,47 +2,21 @@ package model;
 
 
 public class Carrello {
-  private String firstName;
-  private String lastName;
-  private int id;
-  private double balance, balanceNoSign;
+  private int cartId;
+  private int utente;
 
-  
-  public int getId() {
-    return id;
+  public int getCartId() {
+    return cartId;
+  }
+  public int getUtente() {
+    return utente;
   }
 
-  public String getFirstName() {
-    return(firstName);
+  public void setCartId(int cartId) {
+    this.cartId = cartId;
   }
-
-  public String getLastName() {
-    return(lastName);
-  }
-
-  public double getBalance() {
-    return(balance);
-  }
-
-  public double getBalanceNoSign() {
-    return((balance<0)?-balance:balance);
-  }
-
-
-  public void setId(int id) {
-    this.id = id;
-  }
-
-  public void setBalance(double balance) {
-    this.balance = balance;
-  }
-
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
-  }
-
-  public void setFirstName(String firstName) {
-    this.firstName = firstName;
+  public void setUtente(int utente) {
+    this.utente = utente;
   }
 }
   
