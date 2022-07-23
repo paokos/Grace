@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.*;
+import java.util.List;
 
 /**
  * A small table of banking customers for testing.
@@ -55,6 +56,9 @@ public class CategoriaDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public List<Categoria> doRetrieveAll() {
     }
 }
 

@@ -15,7 +15,7 @@ public class CarProDAO {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
                     con.prepareStatement("SELECT cart, prod, quantita FROM carpro WHERE cart=?");
-            ps.setInt(1, c.getId());
+            ps.setInt(1, c.getCartId());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 CarPro p = new CarPro();

@@ -6,13 +6,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Customer;
-import model.CustomerDAO;
+import model.Prodotto;
+import model.ProdottoDAO;
 
 import java.io.IOException;
+import java.util.List;
 
-@WebServlet("/update-customer")
-public class UpdateCustomer extends HttpServlet {
+@WebServlet(urlPatterns = {"/show-categoria"})
+public class ShowCategoria extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -23,24 +24,16 @@ public class UpdateCustomer extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        List<Prodotto> prodotti;
+
+        ProdottoDAO pd = new ProdottoDAO();
+
+        String address = "/WEB-INF/results/showAll.jsp";
+
         RequestDispatcher rd;
-
-        CustomerDAO cd = new CustomerDAO();
-
-        String address;
-
-        Customer c = cd.doRetrieveById(Integer.parseInt(req.getParameter("id")));
-
-        if(c != null) {
-
-            address = "/WEB-INF/results/updateCustomer.jsp";
-
-            req.setAttribute("customer", c);
-        }
-
-        else
-
-            address = "/WEB-INF/results/unknown-customer.jsp";
+        String cat;
+        cat = (req.getParameter("cat")));
+        req.setAttribute("prodotti", prodotti);
 
         rd = req.getRequestDispatcher(address);
 

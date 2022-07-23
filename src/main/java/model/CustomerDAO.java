@@ -8,7 +8,7 @@ import java.util.List;
  * A small table of banking customers for testing.
  */
 
-public class CustomerDAO {
+public class UtenteDAO {
 
     public Customer doRetrieveById(int id) {
         try (Connection con = ConPool.getConnection()) {

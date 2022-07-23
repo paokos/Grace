@@ -6,7 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.UtenteBean;
+import model.Utente;
 
 import java.io.IOException;
 
@@ -23,11 +23,11 @@ public class MostraRegistrazioneServlet extends HttpServlet {
         // INSERIRE QUI LE RIMAMENTI LETTURE DEI PARAMETRI NELLA REQUEST
 
         // creazione dell'istanza del bean UtenteBean e suo caricamento con i dati  del form presi dalla richiesta
-        UtenteBean utenteBean = new UtenteBean(cognome); // AGGIORNARE IL BEAN CON I RIMANENTI DATI
-
+        Utente utente = new Utente(); // AGGIORNARE IL BEAN CON I RIMANENTI DATI
+        utente.setCognome(cognome);
         //memorizzazione del bean nella richiesta. Al bean viene dato nome "utenteBeanxJSP"
         // questo nome verrà utilizzato nella jsp Per richiamare la proprietà cognomeUtenteBean presente nel bean
-        request.setAttribute("utenteBeanxJSP", utenteBean);
+        request.setAttribute("utenteBeanxJSP", utente);
 
         // preparazione al passaggio del controllo alla jsp  mostraDatiUtente.jsp
         String address = "/WEB-INF/results/mostraDatiUtente.jsp" ;

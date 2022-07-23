@@ -1,12 +1,19 @@
 package model;
 
 
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 public class Utente {
+  private int id;
   private String nome;
   private String cognome;
-  private int id;
-  private double email;
+  private String indirizzo;
+  private String email;
   private String pass;
+  private boolean admin;
   
   public int getId() {
     return id;
@@ -20,20 +27,27 @@ public class Utente {
     return(cognome);
   }
 
-  public double getEmail() {
+  public String getIndirizzo() {
+    return indirizzo;
+  }
+
+  public String getEmail() {
     return(email);
   }
 
-  public double getPass() {
+  public String getPass() {
     return(pass);
   }
 
+  public boolean getAdmin(){
+    return(admin);
+  }
 
   public void setId(int id) {
     this.id = id;
   }
 
-  public void setNome(double nome) {
+  public void setNome(String nome) {
     this.nome = nome;
   }
 
@@ -46,7 +60,23 @@ public class Utente {
   }
 
   public void setPass(String pass) {
-    this.pass = pass;
+    try {
+      MessageDigest digest =
+              MessageDigest.getInstance("SHA-1");
+      digest.reset();
+      digest.update(pass.getBytes(StandardCharsets.UTF_8));
+      this.pass = String.format("%040x", new
+              BigInteger(1, digest.digest()));
+    } catch (NoSuchAlgorithmException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  public void setAdmin(boolean admin) {
+    this.admin = admin;
+  }
+
+  public void setIndirizzo(String indirizzo) {
+    this.indirizzo = indirizzo;
   }
 }
-  

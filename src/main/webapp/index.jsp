@@ -7,6 +7,8 @@
     <script src="resources/js/bootstrap.bundle.js"></script>
     <title>JSP - Hello World</title>
 </head>
+<%--index.jsp: mostra prodotti con nome, descrizione e prezzo e presenta un menu a tendina con tutte le
+categorie. La scelta della categoria provoca la chiamata di CategoriaServlet lato server.--%>
 <body>
     <div class="jumbotron text-center">
         <h1>My First Bootstrap Page</h1>
