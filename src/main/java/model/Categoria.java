@@ -2,34 +2,28 @@ package model;
 
 
 public class Categoria {
+  private int catId;
   private String nome;
-  private int parent;
-  private int id;
+  private String descrizione;
   
-  public int getId() {
-    return id;
+  public int getCatId() {
+    return catId;
   }
-
-  public int getParent() {
-    return(parent);
-  }
-
   public String getNome() {
     return(nome);
   }
-
-
-  public void setId(int id) {
-    this.id = id;
+  public String getDescrizione(){
+    return(descrizione);
   }
 
-  public void setParent(int parent) {
-    this.parent = parent;
+  public void setCatId(int catId) {
+    this.catId = catId;
   }
-
   public void setNome(String nome) {
     this.nome = nome;
   }
-
+  public void setDescrizione(String descrizione) {
+    this.descrizione = descrizione;
+  }
 }
   

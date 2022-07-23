@@ -4,22 +4,12 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A small table of banking customers for testing.
- */
-
 public class ProdottoDAO {
-
-
-    /**
-     * Finds the customer with the given ID.
-     * Returns null if there is no match.
-     */
 
     public Prodotto doRetrieveById(int id) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
-                    con.prepareStatement("SELECT codice, nome, prezzo, colore, taglia, imgsrc FROM prodotto WHERE codice=?");
+                    con.prepareStatement("SELECT codice, nome, prezzo, colore, taglia, descrizione, disponibli, imgsrc FROM prodotto WHERE codice=?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -45,7 +35,7 @@ public class ProdottoDAO {
         Prodotto p;
         try (Connection con = ConPool.getConnection()) {
             st= con.createStatement();
-            rs=st.executeQuery("SELECT codice, nome, prezzo, colore, taglia, imgsrc FROM prodotto LIMIT 0,10");
+            rs=st.executeQuery("SELECT codice, nome, prezzo, colore, taglia, descrizione, disponibili, imgsrc FROM prodotto");
             while (rs.next()) {
                 p = new Prodotto();
                 p.setCodice(rs.getInt(1));
@@ -53,7 +43,8 @@ public class ProdottoDAO {
                 p.setPrezzo(rs.getDouble(3));
                 p.setColore(rs.getString(4));
                 p.setTaglia(rs.getString(5));
-                p.setImgsrc(rs.getString(6));
+                p.setDescrizione(rs.getString(6));
+                p.setImgsrc(rs.getString(7));
                 prodotti.add(p);
             }
             con.close();
@@ -70,9 +61,8 @@ public class ProdottoDAO {
         Prodotto p;
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
-                    con.prepareStatement("SELECT codice, nome, prezzo, colore, taglia, imgsrc FROM prodotto WHERE codice in " +
-                    "(SELECT prod FROM procat WHERE cat=?) LIMIT 0,10");
-            ps.setInt(1, c.getId());
+                    con.prepareStatement("SELECT codice, nome, prezzo, colore, taglia, descrizione, disponibili, imgsrc FROM prodotto, procat WHERE codice=prod and cat=?");
+            ps.setInt(1, c.getCatId());
             rs = ps.executeQuery();
             while (rs.next()) {
                 p = new Prodotto();
@@ -81,7 +71,9 @@ public class ProdottoDAO {
                 p.setPrezzo(rs.getDouble(3));
                 p.setColore(rs.getString(4));
                 p.setTaglia(rs.getString(5));
-                p.setImgsrc(rs.getString(6));
+                p.setDescrizione(rs.getString(6));
+                p.setDisponibili(rs.getInt(7));
+                p.setImgsrc(rs.getString(8));
                 prodotti.add(p);
             }
             con.close();
@@ -91,17 +83,46 @@ public class ProdottoDAO {
         }
     }
 
+    public List<Prodotto> doRetrieveByIdCategoria(int c) {
+        ArrayList<Prodotto> prodotti = new ArrayList<>();
+        ResultSet rs;
+        Prodotto p;
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps =
+                    con.prepareStatement("SELECT codice, nome, prezzo, colore, taglia, descrizione, disponibili, imgsrc FROM prodotto, procat WHERE codice=prod and cat=?");
+            ps.setInt(1, c);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                p = new Prodotto();
+                p.setCodice(rs.getInt(1));
+                p.setNome(rs.getString(2));
+                p.setPrezzo(rs.getDouble(3));
+                p.setColore(rs.getString(4));
+                p.setTaglia(rs.getString(5));
+                p.setDescrizione(rs.getString(6));
+                p.setDisponibili(rs.getInt(7));
+                p.setImgsrc(rs.getString(8));
+                prodotti.add(p);
+            }
+            con.close();
+            return prodotti;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public void doSave(Prodotto prodotto) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
-                    "INSERT INTO customer (nome, prezzo, colore, taglia, imgsrc) VALUES(?,?,?,?,?)",
+                    "INSERT INTO customer (nome, prezzo, colore, taglia, descrizione, disponibili, imgsrc) VALUES(?,?,?,?,?,?,?)",
                     Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, prodotto.getNome());
             ps.setDouble(2, prodotto.getPrezzo());
             ps.setString(3, prodotto.getColore());
             ps.setString(4, prodotto.getTaglia());
-            ps.setString(5, prodotto.getImgsrc());
+            ps.setString(5, prodotto.getDescrizione());
+            ps.setInt(6, prodotto.getDisponibili());
+            ps.setString(7, prodotto.getImgsrc());
             if (ps.executeUpdate() != 1) {
                 throw new RuntimeException("INSERT error.");
             }

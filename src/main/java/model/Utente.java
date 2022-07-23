@@ -1,11 +1,6 @@
 package model;
 
 
-import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 public class Utente {
   private int id;
   private String nome;
@@ -60,16 +55,7 @@ public class Utente {
   }
 
   public void setPass(String pass) {
-    try {
-      MessageDigest digest =
-              MessageDigest.getInstance("SHA-1");
-      digest.reset();
-      digest.update(pass.getBytes(StandardCharsets.UTF_8));
-      this.pass = String.format("%040x", new
-              BigInteger(1, digest.digest()));
-    } catch (NoSuchAlgorithmException e) {
-      throw new RuntimeException(e);
-    }
+    this.pass=pass;
   }
 
   public void setAdmin(boolean admin) {

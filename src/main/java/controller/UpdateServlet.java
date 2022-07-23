@@ -6,8 +6,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Customer;
 import model.CustomerDAO;
+import model.Utente;
+import model.UtenteDAO;
 
 import java.io.IOException;
 
@@ -15,26 +16,33 @@ import java.io.IOException;
 public class UpdateServlet extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        this.doGet(req, resp);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        this.doPost(req, resp);
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
 
         RequestDispatcher rd;
 
-        Customer c1, c = new Customer(Integer.parseInt(req.getParameter("id")), req.getParameter("name"),
-                req.getParameter("lastname"), Double.parseDouble(req.getParameter("balance")));
+        Utente user, u = new Utente();
+        u.setId(Integer.parseInt(req.getParameter("nome")));
+        u.setNome(req.getParameter("nome"));
+        u.setCognome(req.getParameter("cognome"));
+        u.setEmail(req.getParameter("email"));
+        u.setAdmin(Boolean.parseBoolean(req.getParameter("admin")));
+        u.setIndirizzo(req.getParameter("indirizzo"));
+        u.setPass(req.getParameter("pass"));
 
-        CustomerDAO cd = new CustomerDAO();
+        UtenteDAO ud = new UtenteDAO();
 
-        cd.doUpdateCustomer(c);
+        ud.doUpdateUtente(u);
 
-        c1 = cd.doRetrieveById(c.getId());
+        user = ud.doRetrieveById(u.getId());
 
-        req.setAttribute("customer", c1);
+        req.setAttribute("customer", user);
 
         rd = req.getRequestDispatcher("WEB-INF/results/updateResult.jsp");
 

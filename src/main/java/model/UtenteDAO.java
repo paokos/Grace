@@ -11,7 +11,7 @@ public class UtenteDAO {
     public Utente doRetrieveById(int id) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
-                    con.prepareStatement("SELECT id, nome, cognome, indirizzo, email, password, admin FROM utente WHERE id=?");
+                    con.prepareStatement("SELECT id, nome, cognome, indirizzo, email, password, admin FROM grace.utente WHERE id=?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -34,7 +34,7 @@ public class UtenteDAO {
     public Utente doRetrieveByEmailPassword(String email, String password) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
-                    con.prepareStatement("SELECT id, nome, cognome, indirizzo, email, password, admin FROM utente WHERE email=? and password=?");
+                    con.prepareStatement("SELECT id, nome, cognome, indirizzo, email, password, admin FROM grace.utente WHERE email=? and password=?");
             ps.setString(1, email);
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
@@ -64,7 +64,7 @@ public class UtenteDAO {
     public void doSave(Utente utente) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
-                    "INSERT INTO utente (nome, cognome, indirizzo, email, password, admin) VALUES(?,?,?,?,?,?)",
+                    "INSERT INTO grace.utente (nome, cognome, indirizzo, email, password, admin) VALUES(?,?,?,?,?,?)",
                     Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, utente.getNome());
             ps.setString(2, utente.getCognome());
@@ -84,6 +84,19 @@ public class UtenteDAO {
         }
     }
 
+    public void doUpdateUtente(Utente u){
+
+        try (Connection con = ConPool.getConnection()) {
+            Statement st = con.createStatement();
+                String query = "update grace.utente set nome='" + u.getNome() + "', cognome='" + u.getCognome()+
+                    "', indirizzo='" + u.getIndirizzo()+ "', email='" + u.getEmail()+
+                    "', password='" + u.getPass()+ "', admin=" + u.getAdmin() + " where id=" + u.getId() + ";";
+            st.executeUpdate(query);
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }
 
