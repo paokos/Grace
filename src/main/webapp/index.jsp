@@ -14,8 +14,8 @@ categorie. La scelta della categoria provoca la chiamata di CategoriaServlet lat
         <h1>My First Bootstrap Page</h1>
         <p>Resize this responsive page to see the effect!</p>
     </div>
-    <h1 class="flex-grow-1"><%= "Hello World!" %></h1>
+    <h1 class=""><%= "Hello World!" %></h1>
     <br/>
-    <a href="hello-servlet">Hello Servlet</a>
+    <a href="/categoria-servlet">Categoria Servlet</a>
 </body>
 </html>

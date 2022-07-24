@@ -8,11 +8,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Prodotto;
 import model.ProdottoDAO;
-
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(urlPatterns = {"/show-categoria"})
+@WebServlet("/show-categoria")
 public class ShowCategoria extends HttpServlet {
 
     @Override
@@ -24,7 +24,7 @@ public class ShowCategoria extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        List<Prodotto> prodotti;
+        List<Prodotto> prodotti = new ArrayList<>();
 
         ProdottoDAO pd = new ProdottoDAO();
 
@@ -32,7 +32,7 @@ public class ShowCategoria extends HttpServlet {
 
         RequestDispatcher rd;
         String cat;
-        cat = (req.getParameter("cat")));
+        cat = (req.getParameter("cat"));
         req.setAttribute("prodotti", prodotti);
 
         rd = req.getRequestDispatcher(address);

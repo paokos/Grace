@@ -25,7 +25,6 @@ public class CategoriaDAO {
         }
     }
 
-
     public Categoria getCategoriaByNome(String nome){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
@@ -46,10 +45,6 @@ public class CategoriaDAO {
 
     }
 
-    // la funzione seguente � inutile perch� il DB � riempito tramite tool esterno
-    // sarebbe utile se l'applicazione fornisse un form per riempirlo. IDEA! aggiungi questa feature all'applicazione
-    // � un buon modo per verificare la sua correttezza
-
     public void doSave(Categoria categoria) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
@@ -64,6 +59,20 @@ public class CategoriaDAO {
             rs.next();
             int id = rs.getInt(1);
             categoria.setCatId(id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void doDelete(int id){
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(
+                    "delete from categoria where catId=?;",
+                    Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, id);
+            if (ps.executeUpdate() != 1) {
+                throw new RuntimeException("DELETE error.");
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

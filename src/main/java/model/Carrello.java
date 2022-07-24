@@ -6,16 +6,12 @@ import java.util.List;
 public class Carrello {
   private int cartId;
   private List<Prodotto> contenuto;
-  private int utente;
 
   public int getCartId() {
     return cartId;
   }
   public List<Prodotto> getContenuto() {
     return contenuto;
-  }
-  public int getUtente() {
-    return utente;
   }
 
   public void setCartId(int cartId) {
@@ -24,11 +20,11 @@ public class Carrello {
   public void setContenuto(List<Prodotto> contenuto) {
     this.contenuto = contenuto;
   }
-  public void setUtente(int utente) {
-    this.utente = utente;
+  public void addContenuto(Prodotto p){
+    contenuto.add(p);
   }
-  public void addCarrello(Prodotto p){
-
+  public boolean isEmpty(){
+    return contenuto.isEmpty();
   }
 }
   

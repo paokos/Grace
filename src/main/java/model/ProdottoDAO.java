@@ -34,8 +34,8 @@ public class ProdottoDAO {
         ResultSet rs;
         Prodotto p;
         try (Connection con = ConPool.getConnection()) {
-            st= con.createStatement();
-            rs=st.executeQuery("SELECT codice, nome, prezzo, colore, taglia, descrizione, disponibili, imgsrc FROM prodotto");
+            st = con.createStatement();
+            rs = st.executeQuery("SELECT codice, nome, prezzo, colore, taglia, descrizione, disponibili, imgsrc FROM prodotto");
             while (rs.next()) {
                 p = new Prodotto();
                 p.setCodice(rs.getInt(1));
@@ -53,7 +53,6 @@ public class ProdottoDAO {
             throw new RuntimeException(e);
         }
     }
-
 
     public List<Prodotto> doRetrieveByCategoria(Categoria c) {
         ArrayList<Prodotto> prodotti = new ArrayList<>();
@@ -89,7 +88,8 @@ public class ProdottoDAO {
         Prodotto p;
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
-                    con.prepareStatement("SELECT codice, nome, prezzo, colore, taglia, descrizione, disponibili, imgsrc FROM prodotto, procat WHERE codice=prod and cat=?");
+                    con.prepareStatement("SELECT codice, nome, prezzo, colore, taglia, descrizione, disponibili, imgsrc FROM prodotto, procat " +
+                            "WHERE codice=prod and cat=?");
             ps.setInt(1, c);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -114,7 +114,7 @@ public class ProdottoDAO {
     public void doSave(Prodotto prodotto) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
-                    "INSERT INTO customer (nome, prezzo, colore, taglia, descrizione, disponibili, imgsrc) VALUES(?,?,?,?,?,?,?)",
+                    "INSERT INTO prodotto (nome, prezzo, colore, taglia, descrizione, disponibili, imgsrc) VALUES(?,?,?,?,?,?,?)",
                     Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, prodotto.getNome());
             ps.setDouble(2, prodotto.getPrezzo());
@@ -136,20 +136,67 @@ public class ProdottoDAO {
         }
     }
 
-    public void doUpdateProdotto(Prodotto p){
+    public void doUpdateProdotto(Prodotto p) {
 
         try (Connection con = ConPool.getConnection()) {
             Statement st = con.createStatement();
 //            nome, prezzo, colore, taglia, imgsrc
             String query = "update Prodotto set nome='" + p.getNome() + "', prezzo=" +
-                    p.getPrezzo() + ", colore='" + p.getColore() + "', taglia='"+ p.getTaglia()+"', imgsrc='"+ p.getImgsrc() + "' where codice=" + p.getCodice() + ";";
+                    p.getPrezzo() + ", colore='" + p.getColore() + "', taglia='" + p.getTaglia() + "', imgsrc='" + p.getImgsrc() + "' where codice=" + p.getCodice() + ";";
             st.executeUpdate(query);
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-}
+    public void doSaveProdottoCategoria(Prodotto p, List<Categoria> categorie) {
+        try (Connection con = ConPool.getConnection()) {
+            for (Categoria c : categorie) {
+                PreparedStatement ps = con.prepareStatement(
+                        "INSERT INTO procat (prod, cat) VALUES(?,?)",
+                        Statement.RETURN_GENERATED_KEYS);
+                ps.setInt(1, p.getCodice());
+                ps.setInt(2, c.getCatId());
+                if (ps.executeUpdate() != 1) {
+                    throw new RuntimeException("INSERT error.");
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
+    public void doSaveProdottoCategoriaId(Prodotto p, List<Integer> categorie) {
+        try (Connection con = ConPool.getConnection()) {
+            for (Integer c : categorie) {
+                PreparedStatement ps = con.prepareStatement(
+                        "INSERT INTO procat (prod, cat) VALUES(?,?)",
+                        Statement.RETURN_GENERATED_KEYS);
+                ps.setInt(1, p.getCodice());
+                ps.setInt(2, c);
+                if (ps.executeUpdate() != 1) {
+                    throw new RuntimeException("INSERT error.");
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+
+        }
+    }
+
+    public void doDelete(Prodotto p){
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(
+                    "DELETE FROM prodotto WHERE codice=?",
+                    Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, p.getCodice());
+            if (ps.executeUpdate() != 1) {
+                throw new RuntimeException("INSERT error.");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+}
 

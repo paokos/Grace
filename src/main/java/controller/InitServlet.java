@@ -14,7 +14,6 @@ import java.util.List;
 
 @WebServlet(name="MyInit", urlPatterns="/MyInit", loadOnStartup=0)
 public class InitServlet extends HttpServlet {
-    @Override
     public void initCategorie() throws ServletException {
         super.init();
         CategoriaDAO categoriaDAO = new CategoriaDAO();

@@ -8,30 +8,49 @@ public class CarrelloDAO {
     public Carrello doRetrieveById(int id) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
-                    con.prepareStatement("SELECT cartID, utente FROM carrello WHERE cartID=?");
+                    con.prepareStatement("SELECT cartID, prod, quantita FROM carrello, carpro WHERE cartID=?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                Carrello c = new Carrello();
+            Carrello c = new Carrello();
+            ProdottoDAO pd = new ProdottoDAO();
+            Prodotto p;
+            while (rs.next()) {
                 c.setCartId(rs.getInt(1));
-                c.setUtente(rs.getInt(2));
-                return c;
+                p = pd.doRetrieveById(rs.getInt(2));
+                for(int i=0; i< rs.getInt(3);i++)
+                    c.addContenuto(p);
             }
-            return null;
+            con.close();
+            return c;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void doSaveOrUpdate(Carrello cart) {
-        if(cart.getCartId()!=null){
-
-        }
+    public Carrello doCreateCarrello(){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
-                    "INSERT INTO grace.carrello (utente) VALUES(?)",
+                    "INSERT INTO grace.carrello VALUES()",
                     Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, cart.getUtente());
+            if (ps.executeUpdate() != 1) {
+                throw new RuntimeException("INSERT error.");
+            }
+            Carrello cart=new Carrello();
+            ResultSet rs = ps.getGeneratedKeys();
+            rs.next();
+            int id = rs.getInt(1);
+            cart.setCartId(id);
+            return cart;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void doUpdate(Carrello cart) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(
+                    "INSERT INTO grace.carrello VALUES()",
+                    Statement.RETURN_GENERATED_KEYS);
             if (ps.executeUpdate() != 1) {
                 throw new RuntimeException("INSERT error.");
             }
@@ -39,12 +58,13 @@ public class CarrelloDAO {
             rs.next();
             int id = rs.getInt(1);
             cart.setCartId(id);
-            ps = con.prepareStatement(
-                    "INSERT INTO grace.carpro (cart, prod, quantita) VALUES(?, ?, ?)",
-                    Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, cart.getUtente());
-            if (ps.executeUpdate() != 1) {
-                throw new RuntimeException("INSERT error.");
+            for( Prodotto p: cart.getContenuto()){
+                ps = con.prepareStatement(
+                        "INSERT INTO grace.carpro (cart, prod, quantita) VALUES(?, ?, ?) ON DUPLICATE KEY UPDATE" +
+                                " quantita=?");
+                if (ps.executeUpdate() != 1) {
+                    throw new RuntimeException("INSERT error.");
+                }
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("/update-customer")
+/*user preferiti*/
 public class UpdateUtente extends HttpServlet {
 
     @Override
@@ -26,13 +27,13 @@ public class UpdateUtente extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher rd;
         UtenteDAO ud = new UtenteDAO();
-        String address;
+        String address="/WEB-INF/results/utente-sconosciuto.jsp";
 
         int userId= Integer.parseInt(req.getParameter("id"));
         String aggPrefer = req.getParameter("aggPrefer");
         String togliPrefer = req.getParameter("togliPrefer");
         Utente u = ud.doRetrieveById(Integer.parseInt(req.getParameter("id")));
-        if(c == null) {
+        if(u == null) {
             address = "/WEB-INF/results/utente-sconosciuto.jsp";
         }
         else{
@@ -54,7 +55,7 @@ public class UpdateUtente extends HttpServlet {
                 }
             }
 
-                req.setAttribute("customer", c);
+                req.setAttribute("customer", u);
         }
 
         rd = req.getRequestDispatcher(address);

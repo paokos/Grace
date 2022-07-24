@@ -9,6 +9,7 @@ public class Utente {
   private String email;
   private String pass;
   private boolean admin;
+  private int carrello;
   
   public int getId() {
     return id;
@@ -38,6 +39,11 @@ public class Utente {
     return(admin);
   }
 
+  public int getCarrello() {
+    return carrello;
+  }
+
+
   public void setId(int id) {
     this.id = id;
   }
@@ -64,5 +70,9 @@ public class Utente {
 
   public void setIndirizzo(String indirizzo) {
     this.indirizzo = indirizzo;
+  }
+
+  public void setCarrello(int carrello) {
+    this.carrello = carrello;
   }
 }
