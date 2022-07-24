@@ -1,16 +1,10 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: D'Antuono
-  Date: 23/07/2022
-  Time: 17:59
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Errore</title>
 </head>
 <body>
-
+Si è verificato un errore nella richiesta.
+Clicca <a href=".">qui</a> per tornare alla pagina principale.
 </body>
 </html>

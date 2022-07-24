@@ -16,6 +16,10 @@ categorie. La scelta della categoria provoca la chiamata di CategoriaServlet lat
     </div>
     <h1 class=""><%= "Hello World!" %></h1>
     <br/>
-    <a href="/categoria-servlet">Categoria Servlet</a>
+    <form action="categoria-servlet">
+        Categoria:
+        <input type="text" name="Categoria"/><br/>
+        <input type="submit" value="getCategoria"/>
+    </form>
 </body>
 </html>

@@ -60,7 +60,7 @@ public class ProdottoDAO {
         Prodotto p;
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
-                    con.prepareStatement("SELECT codice, nome, prezzo, colore, taglia, descrizione, disponibili, imgsrc FROM prodotto, procat WHERE codice=prod and cat=?");
+                    con.prepareStatement("SELECT codice, nome, prezzo, colore, taglia, descrizione, disponibili, imgsrc FROM grace.prodotto, procat WHERE codice=prod and cat=?");
             ps.setInt(1, c.getCatId());
             rs = ps.executeQuery();
             while (rs.next()) {
