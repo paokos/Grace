@@ -2,46 +2,48 @@ package controller;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.Utente;
 import model.UtenteDAO;
-
 import static controller.PassHash.PasswordHasher;
 import java.io.IOException;
 
+@WebServlet("/login-servlet")
 public class LoginServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email=req.getParameter("email");
-        String hash=PasswordHasher(req.getParameter("pass"));
+        String hash=PasswordHasher(req.getParameter("password"));
         UtenteDAO ud=new UtenteDAO();
         Utente u;
         u=ud.doRetrieveByEmailPassword(email, hash);
-        req.setAttribute("Utente", u);
-        String dest="/user-unknown";
+        String dest="index.jsp";
 //        se l'utente esiste ed è valido
         if(u!=null){
             HttpSession session= req.getSession();
-            session.setAttribute("Utente", u);
+            session.setAttribute("utente", u);
 //            se è un'amministratore è inviato alla pagina di amministrazione
             if(u.getAdmin()){
-                dest="admin.jsp";
+                dest="./WEB-INF/admin.jsp";
                 req.getRequestDispatcher(dest).forward(req, resp);
+//                resp.sendRedirect(dest);
             }
 //          altrimenti alla homepage
-            else
-                dest=".";
+            else {
+                dest="index.jsp";
+                resp.sendRedirect(dest);
+            }
         }
-//        altrimenti viene reinviato alla schermata di login
         else {
+//        altrimenti viene reinviato alla schermata di login
             dest="login.jsp";
             req.setAttribute("loginErr", "Credenziali non valide");
             req.getRequestDispatcher(dest).forward(req, resp);
         }
-        resp.sendRedirect(dest);
     }
 
     @Override

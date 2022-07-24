@@ -60,7 +60,8 @@ public class UtenteDAO {
     public Utente doRetrieveByEmailPassword(String email, String password) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
-                    con.prepareStatement("SELECT id, nome, cognome, indirizzo, email, password, admin, carrello FROM grace.utente WHERE email=? and password=?");
+                    con.prepareStatement("SELECT id, nome, cognome, indirizzo, email, password, admin, carrello FROM grace.utente " +
+                            "WHERE email=? and password=?");
             ps.setString(1, email);
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();

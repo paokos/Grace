@@ -10,11 +10,12 @@
 <%--index.jsp: mostra prodotti con nome, descrizione e prezzo e presenta un menu a tendina con tutte le
 categorie. La scelta della categoria provoca la chiamata di CategoriaServlet lato server.--%>
 <body>
+
     <div class="jumbotron text-center">
         <h1>My First Bootstrap Page</h1>
         <p>Resize this responsive page to see the effect!</p>
     </div>
-    <h1 class=""><%= "Hello World!" %></h1>
+    <h1 class="">Welcome ${sessionScope.utente.nome} </h1>
     <br/>
     <form action="categoria-servlet">
         Categoria:

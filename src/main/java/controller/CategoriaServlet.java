@@ -23,13 +23,16 @@ import java.util.List;
 public class CategoriaServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        getServletContext().getAttribute("categorie");
         CategoriaDAO cd=new CategoriaDAO();
         Categoria c=cd.getCategoriaByNome(req.getParameter("Categoria"));
         ProdottoDAO pd=new ProdottoDAO();
         List<Prodotto> prodotti;
-        String address="/categoria.jsp";
+        String address="categoria.jsp";
 
         prodotti=pd.doRetrieveByCategoria(c);
+        req.setAttribute("categoria", c);
+        req.setAttribute("panama", "panama");
         req.setAttribute("prodotti", prodotti);
         RequestDispatcher rd;
         rd= req.getRequestDispatcher(address);
