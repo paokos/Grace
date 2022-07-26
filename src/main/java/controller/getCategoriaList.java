@@ -17,10 +17,10 @@ public class getCategoriaList extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		CategoriaDAO cd=new CategoriaDAO();
-		List<Categoria> categorie;
-		categorie=cd.doRetrieveAll();
-		session.setAttribute("Categorie", categorie);
+//		CategoriaDAO cd=new CategoriaDAO();
+//		List<Categoria> categorie;
+//		categorie=cd.doRetrieveAll();
+		session.setAttribute("categorie", getServletContext().getAttribute("categorie"));
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

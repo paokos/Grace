@@ -1,6 +1,8 @@
 package model;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A small table of banking customers for testing.
@@ -8,6 +10,33 @@ import java.sql.*;
 
 @SuppressWarnings("DuplicatedCode")
 public class UtenteDAO {
+
+    public List<Utente> doRetrieveAll(){
+        ArrayList<Utente> utenti = new ArrayList<>();
+        Statement st;
+        ResultSet rs;
+        Utente u;
+        try (Connection con = ConPool.getConnection()) {
+            st = con.createStatement();
+            rs = st.executeQuery("SELECT id, nome, cognome, indirizzo, email, password, admin, carrello FROM utente");
+            while (rs.next()) {
+                u = new Utente();
+                u.setId(rs.getInt(1));
+                u.setNome(rs.getString(2));
+                u.setCognome(rs.getString(3));
+                u.setIndirizzo(rs.getString(4));
+                u.setEmail(rs.getString(5));
+                u.setPass(rs.getString(6));
+                u.setAdmin(rs.getBoolean(7));
+                u.setCarrello(rs.getInt(8));
+                utenti.add(u);
+            }
+            con.close();
+            return utenti;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public Utente doRetrieveById(int id) {
         try (Connection con = ConPool.getConnection()) {

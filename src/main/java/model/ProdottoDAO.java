@@ -9,7 +9,7 @@ public class ProdottoDAO {
     public Prodotto doRetrieveById(int id) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
-                    con.prepareStatement("SELECT codice, nome, prezzo, colore, taglia, descrizione, disponibli, imgsrc FROM prodotto WHERE codice=?");
+                    con.prepareStatement("SELECT codice, nome, prezzo, colore, taglia, descrizione, disponibili, imgsrc FROM prodotto WHERE codice=?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {

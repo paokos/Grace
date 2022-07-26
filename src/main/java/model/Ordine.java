@@ -2,18 +2,19 @@ package model;
 
 
 import java.sql.Date;
-import java.util.List;
+import java.util.HashMap;
+
 public class Ordine {
   private int ordineId;
   private String indirizzo;
   private Date data;
-  private List<Prodotto> contenuto;
+  private HashMap<Prodotto,Integer> contenuto;
   private int utente;
 
   public int getOrdineId() {
     return ordineId;
   }
-  public List<Prodotto> getContenuto() {
+  public HashMap<Prodotto,Integer> getContenuto() {
     return contenuto;
   }
   public String getIndirizzo() {
@@ -22,14 +23,14 @@ public class Ordine {
   public int getUtente() {
     return utente;
   }
-  public java.sql.Date getData() {
+  public Date getData() {
     return data;
   }
 
   public void setOrdineId(int ordineId) {
     this.ordineId = ordineId;
   }
-  public void setContenuto(List<Prodotto> contenuto) {
+  public void setContenuto(HashMap<Prodotto,Integer> contenuto) {
     this.contenuto = contenuto;
   }
   public void setUtente(int utente) {

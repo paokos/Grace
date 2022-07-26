@@ -19,24 +19,25 @@ import java.util.List;
 //        servlet context. Usando l’id ottiene l’oggetto categoria corrispondente e recupera tutti i prodotti nel
 //        db che fanno parte di quella categoria. Inserisce nella request la categoria ed i prodotti
 //        corrispondenti e passa il controllo a categoria.jsp
-@WebServlet("/categoria-servlet")
+@WebServlet("/categoria")
 public class CategoriaServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        getServletContext().getAttribute("categorie");
+//        getServletContext().getAttribute("categorie");
         CategoriaDAO cd=new CategoriaDAO();
         Categoria c=cd.getCategoriaByNome(req.getParameter("Categoria"));
-        ProdottoDAO pd=new ProdottoDAO();
-        List<Prodotto> prodotti;
-        String address="categoria.jsp";
+        if(c!=null) {
+            ProdottoDAO pd = new ProdottoDAO();
+            List<Prodotto> prodotti;
+            String address = "categoria.jsp";
 
-        prodotti=pd.doRetrieveByCategoria(c);
-        req.setAttribute("categoria", c);
-        req.setAttribute("panama", "panama");
-        req.setAttribute("prodotti", prodotti);
-        RequestDispatcher rd;
-        rd= req.getRequestDispatcher(address);
-        rd.forward(req,resp);
+            prodotti = pd.doRetrieveByCategoria(c);
+            req.setAttribute("categoria", c);
+            req.setAttribute("prodotti", prodotti);
+            RequestDispatcher rd;
+            rd = req.getRequestDispatcher(address);
+            rd.forward(req, resp);
+        }
     }
 
     @Override

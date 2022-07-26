@@ -7,15 +7,17 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import model.Carrello;
+import model.CarrelloDAO;
 import model.Utente;
 import model.UtenteDAO;
 import static controller.PassHash.PasswordHasher;
 import java.io.IOException;
 
-@WebServlet("/login-servlet")
+@WebServlet("/login")
 public class LoginServlet extends HttpServlet{
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email=req.getParameter("email");
         String hash=PasswordHasher(req.getParameter("password"));
         UtenteDAO ud=new UtenteDAO();
@@ -26,6 +28,9 @@ public class LoginServlet extends HttpServlet{
         if(u!=null){
             HttpSession session= req.getSession();
             session.setAttribute("utente", u);
+            CarrelloDAO cd= new CarrelloDAO();
+            Carrello c=cd.doRetrieveById(u.getCarrello());
+            session.setAttribute("carrello", c);
 //            se è un'amministratore è inviato alla pagina di amministrazione
             if(u.getAdmin()){
                 dest="./WEB-INF/admin.jsp";
@@ -47,7 +52,7 @@ public class LoginServlet extends HttpServlet{
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        this.doGet(req, resp);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        this.doPost(req, resp);
     }
 }

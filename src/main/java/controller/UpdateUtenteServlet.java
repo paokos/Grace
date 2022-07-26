@@ -11,8 +11,8 @@ import model.UtenteDAO;
 
 import java.io.IOException;
 
-@WebServlet("/update-servlet")
-public class UpdateServlet extends HttpServlet {
+@WebServlet("/updateUtenteServlet")
+public class UpdateUtenteServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
