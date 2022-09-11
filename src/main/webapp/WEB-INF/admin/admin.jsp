@@ -24,7 +24,7 @@
     <input type="submit" value="Mostra">
 </form>
 
-<form action="showAllProducts">
+<form action="showAllProdotti">
     <label>Gestisci prodtti</label>
     <input type="submit" value="Mostra">
 </form>

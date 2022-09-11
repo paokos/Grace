@@ -2,16 +2,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Mostra utenti</title>
+    <title>Mostra prodotti</title>
 </head>
 <body>
-<h1>Gestione dei clienti</h1>
+<h1>Gestione dei prodotti</h1>
 
 <ol>
-    <c:forEach items="${customers}" var="customer">
-        <li>${customer.firstName} ${customer.lastName} ${customer.balance}
+    <c:forEach items="${prodotti}" var="prodotti">
+        <li>${prodotti.codice} ${prodotti.nome} ${prodotti.prezzo} ${prodotti.colore} ${prodotti.taglia}
+                ${prodotti.descrizione} ${prodotti.disponibili} ${prodotti.imgsrc}
             <form action="updateProdotto">
-                <input type="hidden" name="id" value="${customer.id}">
+                <input type="hidden" name="codice" value="${prodotti.codice}">
                 <input type="submit" value="Modifica">
             </form>
         </li>

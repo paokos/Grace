@@ -13,7 +13,7 @@ import model.UtenteDAO;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(urlPatterns = {"/show-all"})
+@WebServlet(urlPatterns = {"/showAllUtenti"})
 public class ShowAllUtenti extends HttpServlet {
 
     @Override
@@ -29,7 +29,7 @@ public class ShowAllUtenti extends HttpServlet {
 
         UtenteDAO ud = new UtenteDAO();
 
-        String address = "/WEB-INF/results/showAllUtenti.jsp";
+        String address = "/WEB-INF/admin/showAllUtenti.jsp";
 
         RequestDispatcher rd;
 

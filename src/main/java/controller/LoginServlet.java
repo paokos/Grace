@@ -33,7 +33,7 @@ public class LoginServlet extends HttpServlet{
             session.setAttribute("carrello", c);
 //            se è un'amministratore è inviato alla pagina di amministrazione
             if(u.getAdmin()){
-                dest="./WEB-INF/admin.jsp";
+                dest="./WEB-INF/admin/admin.jsp";
                 req.getRequestDispatcher(dest).forward(req, resp);
 //                resp.sendRedirect(dest);
             }
