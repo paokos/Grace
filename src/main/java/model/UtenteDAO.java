@@ -148,7 +148,7 @@ public class UtenteDAO {
             Statement st = con.createStatement();
                 String query = "update grace.utente set nome='" + u.getNome() + "', cognome='" + u.getCognome()+
                     "', indirizzo='" + u.getIndirizzo()+ "', email='" + u.getEmail()+
-                    "', password='" + u.getPass()+ "', admin=" + u.getAdmin() + ", carrello="+ u.getCarrello() +
+                    "', password='" + u.getPass()+ "', admin=" + u.getAdmin() /*+ ", carrello="+ u.getCarrello()*/ +
                     " where id=" + u.getId() + ";";
             st.executeUpdate(query);
         }

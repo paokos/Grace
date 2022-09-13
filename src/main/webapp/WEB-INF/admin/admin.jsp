@@ -19,7 +19,7 @@
         response.sendRedirect(redirectURL);
     }
 %>
-<form action="showAllUsers">
+<form action="showAllUtenti">
     <label>Gestisci clienti</label>
     <input type="submit" value="Mostra">
 </form>

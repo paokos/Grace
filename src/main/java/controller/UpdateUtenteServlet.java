@@ -26,8 +26,8 @@ public class UpdateUtenteServlet extends HttpServlet {
 
         RequestDispatcher rd;
 
-        Utente user, u = new Utente();
-        u.setId(Integer.parseInt(req.getParameter("nome")));
+        Utente /*user,*/ u = new Utente();
+        u.setId(Integer.parseInt(req.getParameter("id")));
         u.setNome(req.getParameter("nome"));
         u.setCognome(req.getParameter("cognome"));
         u.setEmail(req.getParameter("email"));
@@ -36,15 +36,11 @@ public class UpdateUtenteServlet extends HttpServlet {
         u.setPass(req.getParameter("pass"));
 
         UtenteDAO ud = new UtenteDAO();
-
         ud.doUpdateUtente(u);
-
-        user = ud.doRetrieveById(u.getId());
-
-        req.setAttribute("customer", user);
-
-        rd = req.getRequestDispatcher("WEB-INF/results/updateResult.jsp");
-
-        rd.forward(req, resp);
+//        user = ud.doRetrieveById(u.getId());
+//        req.setAttribute("utente", user);
+        resp.sendRedirect("showAllUtenti");
+//        rd = req.getRequestDispatcher("showAllUtenti");
+//        rd.forward(req, resp);
     }
 }
