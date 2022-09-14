@@ -12,7 +12,7 @@
     <%
         Utente u= (Utente) session.getAttribute("utente");
         if(u==null || !u.getAdmin()){
-            String redirectURL = "index.jsp";
+            String redirectURL = ".";
             response.sendRedirect(redirectURL);
         }
     %>
