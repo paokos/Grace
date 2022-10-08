@@ -20,7 +20,7 @@ public class CarrelloDAO {
             Prodotto p;
             while (rs.next()) {
                 c.setCartId(rs.getInt(1));
-                p = pd.doRetrieveById(rs.getInt(2));
+                p = pd.doRetrieveByCodice(rs.getInt(2));
 //                for(int i=0; i< rs.getInt(3);i++)
                     c.addContenuto(p,rs.getInt(3));
             }
@@ -89,6 +89,7 @@ public class CarrelloDAO {
             ps.setInt(1,c.getCartId());
             ps.setInt(2,p.getCodice());
             ps.setInt(3,quant);
+            ps.setInt(4,quant);
             if (ps.executeUpdate() != 1) {
                 throw new RuntimeException("INSERT error.");
             }

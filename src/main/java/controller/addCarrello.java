@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.Carrello;
 import model.CarrelloDAO;
 import model.Prodotto;
+import model.ProdottoDAO;
 
 import java.io.IOException;
 
@@ -19,10 +20,11 @@ public class addCarrello extends HttpServlet {
         CarrelloDAO cd=new CarrelloDAO();
         if(c==null)
             c = cd.doCreateCarrello();
-        Prodotto p=(Prodotto) req.getAttribute("prodotto");
-        if(p.getDisponibili()<=(Integer) req.getAttribute("quantita")) {
-            c.addContenuto(p, (Integer) req.getAttribute("quantita"));
-            cd.addToCart(p, c, (Integer) req.getAttribute("quantita"));
+        ProdottoDAO pd=new ProdottoDAO();
+        Prodotto p=pd.doRetrieveByCodice(Integer.parseInt(req.getParameter("codice")));
+        if(p.getDisponibili()<=Integer.parseInt(req.getParameter("quantita"))) {
+            c.addContenuto(p, Integer.parseInt(req.getParameter("quantita")));
+            cd.addToCart(p, c, Integer.parseInt(req.getParameter("quantita")));
         }
         req.getSession().setAttribute("carrello", c);
         resp.sendRedirect("carrello.jsp");

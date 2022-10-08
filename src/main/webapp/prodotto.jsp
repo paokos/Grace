@@ -12,9 +12,11 @@
     <script src="resources/js/imageLoader.js" defer></script>
 </head>
 <body>
+
 <form action="addCarrello">
-    <input type="number" name="quantita">
-    <input type="submit" name="aggiungi" value="${pageScope.prodotto}">
+    <input type="hidden" name="codice" value="${requestScope.prodotto.codice}">
+    <input type="number" name="quantita" min="1" max="9">
+    <input type="submit" value="Aggiungi al Carrello">
 </form>
 </body>
 </html>

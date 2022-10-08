@@ -20,7 +20,7 @@ public class RemoveProdotto extends HttpServlet {
         HttpSession session = req.getSession();
         Carrello c= (Carrello) session.getAttribute("carrello");
         ProdottoDAO pd =new ProdottoDAO();
-        Prodotto p = pd.doRetrieveById(Integer.parseInt(req.getParameter("prodotto"))) ;
+        Prodotto p = pd.doRetrieveByCodice(Integer.parseInt(req.getParameter("prodotto"))) ;
         CarrelloDAO cd=new CarrelloDAO();
         if(p!=null) {
              if(c!=null) {

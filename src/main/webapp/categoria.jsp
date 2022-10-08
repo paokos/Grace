@@ -10,7 +10,9 @@
         ${prod.codice}
         ${prod.nome}
         ${prod.descrizione}
-        <img src="${prod.imgsrc}">
+        <a href="prodotto?codice=${prod.codice}">
+            <img src="${prod.imgsrc}" height="200px" width="200px">
+        </a>
     </c:forEach>
 </body>
 <head>
