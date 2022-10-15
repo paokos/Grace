@@ -41,6 +41,9 @@
             </form>
         </div>
     </c:forEach>
+    <form action="/checkout">
+
+    </form>
 </div>
 </body>
 </html>
