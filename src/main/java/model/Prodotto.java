@@ -1,6 +1,8 @@
 package model;
 
 
+import java.util.Objects;
+
 public class Prodotto {
   private int codice;
   private String nome;
@@ -60,6 +62,19 @@ public class Prodotto {
   }
   public void setImgsrc(String imgsrc) {
     this.imgsrc = imgsrc;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Prodotto prodotto = (Prodotto) o;
+    return codice == prodotto.codice;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(codice);
   }
 }
 
