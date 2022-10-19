@@ -20,11 +20,13 @@ public class Carrello {
     public void setContenuto(HashMap<Prodotto, Integer> contenuto) {
         this.contenuto = contenuto;
     }
+
     public void addContenuto(Prodotto p, int q){
         if(contenuto==null)
-            contenuto=new HashMap<Prodotto,Integer>();
+            contenuto= new HashMap<>();
         if(contenuto.containsKey(p)) {
-            contenuto.put(p, contenuto.get(p)+q);
+            q=contenuto.get(p)+q;
+            contenuto.replace(p, q);
         }
         else
             contenuto.put(p, q);

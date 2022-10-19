@@ -44,7 +44,7 @@ public class LoginServlet extends HttpServlet{
             }
         }
         else {
-//        altrimenti viene reinviato alla schermata di login
+//        se le credenziali non sono valide, ritorna alla pagina di login
             dest="login.jsp";
             req.setAttribute("loginErr", "Credenziali non valide");
             req.getRequestDispatcher(dest).forward(req, resp);

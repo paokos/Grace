@@ -29,21 +29,26 @@
 </head>
 <body>
 <%@include file="/WEB-INF/header.jsp"%>
-<div>
-    <c:forEach items="${sessionScope.carrello.contenuto}" var="elem">
-        <div id="${elem.key.nome}">
-            ${elem.key.nome}
-            ${elem.value}
-            <form action="removeProdotto">
-                ${elem.key.codice}
-                <input type="hidden" name="prodotto" value="${elem.key.codice}">
-                <input type="submit" value="Rimuovi">
-            </form>
-        </div>
-    </c:forEach>
-    <form action="/checkout">
+    <div>
+        <c:set var="tot" value="${0}"/>
+        <c:forEach items="${sessionScope.carrello.contenuto}" var="elem">
+            <% int tot=0;%>
+            <div id="${elem.key.nome}">
+                ${elem.key.nome}
+                ${elem.key.prezzo}
+                ${elem.value}
+                <c:set var="tot" value="${tot + elem.key.prezzo * elem.value}" />
+                <form action="removeProdotto">
+                    ${elem.key.codice}
+                    <input type="hidden" name="prodotto" value="${elem.key.codice}">
+                    <input type="submit" value="Rimuovi">
+                </form>
+            </div>
+        </c:forEach>
+        ${tot}
+        <form action="/checkout">
 
-    </form>
-</div>
+        </form>
+    </div>
 </body>
 </html>

@@ -85,16 +85,17 @@ public class CarrelloDAO {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
                     "INSERT INTO carpro (cart, prod, quantita) VALUES(?,?,?) ON DUPLICATE KEY UPDATE"+
-                            " quantita=?+quantita", Statement.RETURN_GENERATED_KEYS);
+                            " quantita=?+quantita"/*, Statement.RETURN_GENERATED_KEYS*/);
             ps.setInt(1,c.getCartId());
             ps.setInt(2,p.getCodice());
             ps.setInt(3,quant);
             ps.setInt(4,quant);
-            if (ps.executeUpdate()!= 1) {
-                throw new RuntimeException("INSERT error.");
-            }
-            ResultSet rs = ps.getGeneratedKeys();
-            rs.next();
+            ps.executeUpdate();
+//            if (ps.executeUpdate()> 1) {
+//                throw new RuntimeException("INSERT error.");
+//            }
+//            ResultSet rs = ps.getGeneratedKeys();
+//            rs.next();
             c.addContenuto(p, quant);
         } catch (SQLException e) {
             throw new RuntimeException(e);
