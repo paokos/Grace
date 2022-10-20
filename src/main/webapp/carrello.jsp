@@ -46,8 +46,8 @@
             </div>
         </c:forEach>
         ${tot}
-        <form action="/checkout">
-
+        <form action="ordina" method="post">
+            <input type="submit" value="Ordina">
         </form>
     </div>
 </body>

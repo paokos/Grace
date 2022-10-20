@@ -36,6 +36,15 @@ public class Carrello {
             contenuto.remove(p);
         }
     }
+    public void svuotaCarrello(){
+        contenuto= new HashMap<>();
+    }
+    public int getQuantProdotto(Prodotto p){
+        int q=0;
+        if(contenuto.containsKey(p))
+            q=contenuto.get(p);
+        return q;
+    }
     public boolean isEmpty(){
         return contenuto.isEmpty();
     }

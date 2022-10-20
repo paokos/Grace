@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 
 public class OrdineDAO {
@@ -25,12 +26,11 @@ public class OrdineDAO {
         }
     }
 
-    public Ordine doSaveByCart(Carrello c) {
+    public void doSaveByCart(Carrello c) {
         try (Connection con = ConPool.getConnection()) {
             Ordine ord=new Ordine();
             PreparedStatement ps = con.prepareStatement(
-                    "INSERT INTO ordine (utente, data, indirizzo) VALUE(?,?,?)",
-                    Statement.RETURN_GENERATED_KEYS);
+                    "INSERT INTO ordine (utente, data, indirizzo) VALUE(?,?,?)",Statement.RETURN_GENERATED_KEYS);
             UtenteDAO ud= new UtenteDAO();
             Utente u;
             u=ud.doRetrieveByCartId(c.getCartId());
@@ -41,7 +41,7 @@ public class OrdineDAO {
             ps.setInt(1, ord.getUtente());
             ps.setDate(2, ord.getData());
             ps.setString(3, ord.getIndirizzo());
-            if (ps.executeUpdate() != 1) {
+            if (ps.execute()) {
                 throw new RuntimeException("INSERT error.");
             }
             ResultSet rs = ps.getGeneratedKeys();
@@ -70,14 +70,12 @@ public class OrdineDAO {
                     throw new RuntimeException("UPDATE error.");
                 }
             }
-            con.close();
-            return ord;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private static int controlloDisponibili(int idProd, int quantita){
+    public static int controlloDisponibili(int idProd, int quantita){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
                     "SELECT codice, disponibili from prodotto where codice=?");
@@ -91,6 +89,27 @@ public class OrdineDAO {
                 return 0;
             else
                 return rs.getInt(2);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public ArrayList<Ordine> doRetriveByUtente(int user){
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps =
+                    con.prepareStatement("SELECT ordineID, indirizzo, data FROM ordine WHERE utente=?");
+            ps.setInt(1, user);
+            ResultSet rs = ps.executeQuery();
+            ArrayList<Ordine> ordini=new ArrayList<>();
+            if (rs.next()) {
+                Ordine o = new Ordine();
+                o.setOrdineId(rs.getInt(1));
+                o.setIndirizzo(rs.getString(2));
+                o.setData(rs.getDate(3));
+                o.setUtente(rs.getInt(4));
+                ordini.add(o);
+            }
+            return ordini;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

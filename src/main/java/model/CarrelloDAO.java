@@ -96,7 +96,7 @@ public class CarrelloDAO {
 //            }
 //            ResultSet rs = ps.getGeneratedKeys();
 //            rs.next();
-            c.addContenuto(p, quant);
+//            c.addContenuto(p, quant);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -105,15 +105,55 @@ public class CarrelloDAO {
     public void removeFromCart(Prodotto p, Carrello c){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
-                    "DELETE FROM carpro WHERE cart=? and prod=?",
-                    Statement.RETURN_GENERATED_KEYS);
+                    "DELETE FROM carpro WHERE cart=? and prod=?");
+//                    ,Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1,c.getCartId());
             ps.setInt(2,p.getCodice());
-            if (ps.executeUpdate() != 1) {
-                throw new RuntimeException("DELETE error.");
-            }
-            ResultSet rs = ps.getGeneratedKeys();
-            rs.next();
+            ps.executeUpdate();
+//            if (ps.executeUpdate()!= 1){
+//                throw new RuntimeException("DELETE error.");
+//            }
+//            ResultSet rs = ps.getGeneratedKeys();
+//            rs.next();
+            c.removeContenuto(p);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void svuotaCart(Carrello c){
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(
+                    "DELETE FROM carpro WHERE cart=?",
+                    Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1,c.getCartId());
+//            if (
+                    ps.executeUpdate();
+//                    != 1) {
+//                throw new RuntimeException("DELETE error.");
+//            }
+//            ResultSet rs = ps.getGeneratedKeys();
+//            rs.next();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void controlloQuant(Carrello c){
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(
+                    "DELETE FROM carpro WHERE cart=?",
+                    Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1,c.getCartId());
+//            if (
+            ps.executeUpdate();
+//                    != 1) {
+//                throw new RuntimeException("DELETE error.");
+//            }
+//            ResultSet rs = ps.getGeneratedKeys();
+//            rs.next();
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

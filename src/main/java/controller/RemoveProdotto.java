@@ -24,8 +24,8 @@ public class RemoveProdotto extends HttpServlet {
         CarrelloDAO cd=new CarrelloDAO();
         if(p!=null) {
              if(c!=null) {
-                 c.removeContenuto(p);
                  cd.removeFromCart(p, c);
+                 c.removeContenuto(p);
                  session.setAttribute("carrello", c);
              }
             resp.sendRedirect(".");
