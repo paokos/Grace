@@ -41,7 +41,7 @@ public class OrdineDAO {
             ps.setInt(1, ord.getUtente());
             ps.setDate(2, ord.getData());
             ps.setString(3, ord.getIndirizzo());
-            if (ps.execute()) {
+            if (ps.executeUpdate()!=1) {
                 throw new RuntimeException("INSERT error.");
             }
             ResultSet rs = ps.getGeneratedKeys();
@@ -54,12 +54,12 @@ public class OrdineDAO {
             rs=ps.executeQuery();
             while (rs.next()) {
                 PreparedStatement psIn = con.prepareStatement(
-                    "INSERT INTO grace.ordpro (ord, prod, prezzo, quantita) VALUES(?, ?, ?, ?)");
+                    "INSERT INTO ordpro (ord, prod, prezzo, quantita) VALUES(?, ?, ?, ?)");
                 psIn.setInt(1, ord.getOrdineId());
                 psIn.setInt(2, rs.getInt(1));
                 psIn.setInt(3, rs.getInt(2));
                 psIn.setInt(4, rs.getInt(3));
-                if (ps.executeUpdate() != 1) {
+                if (psIn.executeUpdate() != 1) {
                     throw new RuntimeException("INSERT error.");
                 }
                 psIn = con.prepareStatement(
@@ -106,7 +106,6 @@ public class OrdineDAO {
                 o.setOrdineId(rs.getInt(1));
                 o.setIndirizzo(rs.getString(2));
                 o.setData(rs.getDate(3));
-                o.setUtente(rs.getInt(4));
                 ordini.add(o);
             }
             return ordini;

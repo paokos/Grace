@@ -28,6 +28,13 @@
     pageContext.setAttribute("ordini", ordini);
 %>
 <c:forEach items="${ordini}" var="elem">
-
+    <div id="${elem.ordineId}">
+        ${elem.indirizzo}
+        ${elem.data}
+        <c:forEach items="${elem.contenuto}" var="prod">
+            ${prod.key.nome}
+        </c:forEach>
+    </div>
+</c:forEach>
 </body>
 </html>
