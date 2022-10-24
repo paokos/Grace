@@ -1,7 +1,6 @@
 package model;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -22,7 +21,7 @@ public class CarrelloDAO {
                 c.setCartId(rs.getInt(1));
                 p = pd.doRetrieveByCodice(rs.getInt(2));
 //                for(int i=0; i< rs.getInt(3);i++)
-                    c.addContenuto(p,rs.getInt(3));
+                    c.addProdotto(p,rs.getInt(3));
             }
             con.close();
             return c;
@@ -44,7 +43,7 @@ public class CarrelloDAO {
             rs.next();
             int id = rs.getInt(1);
             cart.setCartId(id);
-            cart.setContenuto(new HashMap<Prodotto, Integer>());
+            cart.setContenuto(new HashMap<>());
             return cart;
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -115,7 +114,7 @@ public class CarrelloDAO {
 //            }
 //            ResultSet rs = ps.getGeneratedKeys();
 //            rs.next();
-            c.removeContenuto(p);
+            c.removeProdotto(p);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

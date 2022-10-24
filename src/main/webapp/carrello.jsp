@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Title</title>
+    <title>Carrello</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -46,9 +46,11 @@
             </div>
         </c:forEach>
         ${tot}
-        <form action="ordina" method="post">
-            <input type="submit" value="Ordina">
-        </form>
+        <c:if test="${not empty sessionScope.carrello.contenuto}">
+            <form action="ordina" method="post">
+                <input type="submit" value="Ordina">
+            </form>
+        </c:if>
     </div>
 </body>
 </html>

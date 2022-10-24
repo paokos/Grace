@@ -18,12 +18,13 @@ public class addCarrello extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Carrello c = (Carrello) req.getSession().getAttribute("carrello");
         CarrelloDAO cd=new CarrelloDAO();
-        if(c==null)
+        if(c==null) {
             c = cd.doCreateCarrello();
+        }
         ProdottoDAO pd=new ProdottoDAO();
         Prodotto p=pd.doRetrieveByCodice(Integer.parseInt(req.getParameter("codice")));
         if(p.getDisponibili()<=Integer.parseInt(req.getParameter("quantita"))+c.getQuantProdotto(p)) {
-            c.addContenuto(p, Integer.parseInt(req.getParameter("quantita")));
+            c.addProdotto(p, Integer.parseInt(req.getParameter("quantita")));
             cd.addToCart(p, c, Integer.parseInt(req.getParameter("quantita")));
         }
         req.getSession().setAttribute("carrello", c);

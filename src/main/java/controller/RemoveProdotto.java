@@ -25,7 +25,7 @@ public class RemoveProdotto extends HttpServlet {
         if(p!=null) {
              if(c!=null) {
                  cd.removeFromCart(p, c);
-                 c.removeContenuto(p);
+                 c.removeProdotto(p);
                  session.setAttribute("carrello", c);
              }
             resp.sendRedirect(".");

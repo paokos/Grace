@@ -21,7 +21,7 @@ public class Carrello {
         this.contenuto = contenuto;
     }
 
-    public void addContenuto(Prodotto p, int q){
+    public void addProdotto(Prodotto p, int q){
         if(contenuto==null)
             contenuto= new HashMap<>();
         if(contenuto.containsKey(p)) {
@@ -31,7 +31,7 @@ public class Carrello {
         else
             contenuto.put(p, q);
     }
-    public void removeContenuto(Prodotto p){
+    public void removeProdotto(Prodotto p){
         if(contenuto!=null) {
             contenuto.remove(p);
         }
@@ -41,7 +41,7 @@ public class Carrello {
     }
     public int getQuantProdotto(Prodotto p){
         int q=0;
-        if(contenuto.containsKey(p))
+        if(contenuto.containsKey(p))//check
             q=contenuto.get(p);
         return q;
     }

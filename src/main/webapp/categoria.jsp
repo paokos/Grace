@@ -4,6 +4,14 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <!DOCTYPE html>
 <html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.js"></script>
+
+    <title>Categoria</title>
+</head>
 <body>
 <%@include file="/WEB-INF/header.jsp"%>
     <c:forEach items="${requestScope.prodotti}" var="prod">
@@ -15,7 +23,4 @@
         </a>
     </c:forEach>
 </body>
-<head>
-    <title>Categoria</title>
-</head>
 </html>
