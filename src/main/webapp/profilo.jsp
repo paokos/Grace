@@ -13,7 +13,6 @@
 <body>
 <%@include file="WEB-INF/header.jsp"%>
 <nav>
-<%--    ${}--%>
     <form class="row g-3" action="updateUtente">
         <div class="col-md-4">
             <label for="validationNome" class="form-label">Nome</label>
