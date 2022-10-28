@@ -11,7 +11,7 @@
 <body>
 <%@include file="/WEB-INF/header.jsp"%>
 <nav>
-    <form class="row g-3" action="insertUser">
+    <form class="row g-3" action="insertUser" method="post">
         <div class="col-md-4">
             <label for="validationNome" class="form-label">Nome</label>
             <input name="nome" type="text" class="form-control" id="validationNome" required>

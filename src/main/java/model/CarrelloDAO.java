@@ -15,6 +15,7 @@ public class CarrelloDAO {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             Carrello c = new Carrello();
+            c.setContenuto(new HashMap<>());
             ProdottoDAO pd = new ProdottoDAO();
             Prodotto p;
             while (rs.next()) {

@@ -46,11 +46,21 @@
             </div>
         </c:forEach>
         ${tot}
-        <c:if test="${not empty sessionScope.carrello.contenuto}">
-            <form action="ordina" method="post">
-                <input type="submit" value="Ordina">
-            </form>
-        </c:if>
+        <c:choose>
+            <c:when test="${not empty sessionScope.carrello.contenuto}&&${sessionScope.utente == null}">
+                <form action="signup.jsp">
+                    <input type="submit" value="Accedi">
+                </form>
+            </c:when>
+            <c:when test="${not empty sessionScope.carrello.contenuto} && ${sessionScope.utente != null}">
+                <form action="ordina" method="post">
+                    <input type="submit" value="Ordina">
+                </form>
+            </c:when>
+            <c:when test="${empty sessionScope.carrello.contenuto}">
+                Il carrello è vuoto
+            </c:when>
+        </c:choose>
     </div>
 </body>
 </html>

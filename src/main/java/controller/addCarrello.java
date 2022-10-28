@@ -23,9 +23,11 @@ public class addCarrello extends HttpServlet {
         }
         ProdottoDAO pd=new ProdottoDAO();
         Prodotto p=pd.doRetrieveByCodice(Integer.parseInt(req.getParameter("codice")));
-        if(p.getDisponibili()<=Integer.parseInt(req.getParameter("quantita"))+c.getQuantProdotto(p)) {
-            c.addProdotto(p, Integer.parseInt(req.getParameter("quantita")));
-            cd.addToCart(p, c, Integer.parseInt(req.getParameter("quantita")));
+        int presente = c.getQuantProdotto(p);
+        int tot=Integer.parseInt(req.getParameter("quantita"))+presente;
+        if(tot<=10 && p.getDisponibili()<=tot) {
+            c.addProdotto(p, 1);
+            cd.addToCart(p, c, 1);
         }
         req.getSession().setAttribute("carrello", c);
         resp.sendRedirect("carrello.jsp");

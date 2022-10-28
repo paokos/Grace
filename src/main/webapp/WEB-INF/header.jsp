@@ -1,27 +1,82 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.js"></script>
+    <script src="resources/js/ricercaAjax.js"></script>
 </head>
 <body>
-<div class="jumbotron text-center">
-    <h1>My First Bootstrap Page</h1>
-    <p>Resize this responsive page to see the effect!</p>
-</div>
-<h1 class="">Welcome ${sessionScope.utente.nome} </h1>
-<br>
-<nav class="navbar bg-light">
+<!--
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
     <div class="container-fluid">
-        <a class="navbar-brand">Navbar</a>
-        <form class="d-flex" role="search" action="ricerca" method="get">
-            <input class="form-control me-2" type="search" placeholder="Ricerca..." aria-label="Ricerca" name="q">
-            <button class="btn btn-outline-success" type="submit">Ricerca</button>
-        </form>
+        <a class="navbar-brand" href="home">Grace</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarHeader">
+            <form class="d-flex  input-group w-50 mx-auto" role="search" action="ricerca" method="get">
+                <input class="form-control" type="search" placeholder="Ricerca..." aria-label="Ricerca" name="q">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit">Button</button>
+                </div>
+            </form>
+            <c:choose>
+                <c:when test="${sessionScope.utente!=null}">
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"  data-bs-target="#utenteDd" aria-expanded="false">
+                            ${sessionScope.utente.nome}
+                        </a>
+                        <ul class="dropdown-menu" id="utenteDd">
+                            <li><a class="dropdown-item" href="ordini">Ordini</a></li>
+                            <li><a class="dropdown-item" href="profilo">Profilo</a></li>
+                            <li><a class="dropdown-item" href="logout">Logout</a></li>
+                        </ul>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <a class="nav-link" href="login">Login</a>
+                </c:otherwise>
+            </c:choose>
+            <a type="button" class="btn btn-primary" href="carrello.jsp">Carrello</a>
+        </div>
+    </div>
+</nav>
+-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top" >
+    <div class="container-fluid">
+        <a class="navbar-brand" href="home">Grace</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse"  id="navbarSupportedContent">
+            <form class="d-flex  input-group w-50 mx-auto" role="search" action="ricerca" method="get">
+                <input class="form-control" type="search" placeholder="Ricerca..." aria-label="Ricerca" name="q">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit">Button</button>
+                </div>
+            </form>
+            <div class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    ${sessionScope.utente.nome}
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="ordini">Ordini</a></li>
+                    <li><a class="dropdown-item" href="profilo">Profilo</a></li>
+                    <li><a class="dropdown-item" href="logout">Logout</a></li>
+                </ul>
+            </div>
+            <a type="button" class="btn btn-primary" href="carrello.jsp">Carrello</a>
+        </div>
     </div>
 </nav>
 
+<!--
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="home">Navbar</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -41,9 +96,7 @@
                         <li><a class="dropdown-item" href="#">Action</a></li>
                         <li><a class="dropdown-item" href="#">Another action</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
                         <li><a class="dropdown-item" href="carrello.jsp">Carrello</a></li>
-                        <li><a class="dropdown-item" href="home">Home</a></li>
                         <li><a class="dropdown-item" href="login.jsp">login</a></li>
                         <li><a class="dropdown-item" href="signup.jsp">iscriviti</a></li>
                         <li><a class="dropdown-item" href="logout">logout</a></li>
@@ -51,7 +104,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled">Disabled</a>
+                    <a class="nav-link" href="login.jsp">Login</a>
                 </li>
             </ul>
             <form class="d-flex">
@@ -61,12 +114,12 @@
         </div>
     </div>
 </nav>
-
-<a href="carrello.jsp">Carrello</a><br>
-<a href="home">Home</a><br>
-<a href="login.jsp">login</a><br>
-<a href="signup.jsp">iscriviti</a><br>
-<a href="logout">logout</a><br>
-<a href="ordini">ordini</a>
+    <a href="carrello.jsp">Carrello</a><br>
+    <a href="home">Home</a><br>
+    <a href="profilo.jsp"></a><br>
+    <a href="signup.jsp">iscriviti</a><br>
+    <a href="logout">logout</a><br>
+    <a href="ordini">ordini</a>
+-->
 </body>
 </html>
