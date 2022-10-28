@@ -15,14 +15,13 @@ public class CarrelloDAO {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             Carrello c = new Carrello();
+            c.setCartId(id);
             c.setContenuto(new HashMap<>());
             ProdottoDAO pd = new ProdottoDAO();
             Prodotto p;
             while (rs.next()) {
-                c.setCartId(rs.getInt(1));
                 p = pd.doRetrieveByCodice(rs.getInt(2));
-//                for(int i=0; i< rs.getInt(3);i++)
-                    c.addProdotto(p,rs.getInt(3));
+                c.addProdotto(p,rs.getInt(3));
             }
             con.close();
             return c;

@@ -15,7 +15,7 @@
 
 <form action="addCarrello">
     <input type="hidden" name="codice" value="${requestScope.prodotto.codice}">
-    <input type="number" name="quantita" min="1" max="9">
+<!--    <input type="number" name="quantita" min="1" max="9">-->
     <input type="submit" value="Aggiungi al Carrello">
 </form>
 </body>

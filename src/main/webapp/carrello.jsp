@@ -8,24 +8,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.js"></script>
-<%--    <script>--%>
-<%--        function aggiornaQuant(prod) {--%>
-<%--            let xhttp = new XMLHttpRequest();--%>
-<%--            xhttp.onreadystatechange = function() {--%>
-<%--                if (this.readyState === 4 && this.status === 200) {--%>
-<%--                    document.getElementById("comune").innerHTML =--%>
-<%--                        this.responseText;--%>
-<%--                }--%>
-<%--            };--%>
-<%--            xhttp.open("GET", "updateQuant?provincia="+prov+"&prodottoId="+, true);--%>
-<%--            xhttp.send();--%>
-<%--        }--%>
-
-<%--        $(".qt").change(function (){--%>
-
-<%--            }--%>
-<%--        )--%>
-<%--    </script>--%>
 </head>
 <body>
 <%@include file="/WEB-INF/header.jsp"%>
@@ -47,12 +29,10 @@
         </c:forEach>
         ${tot}
         <c:choose>
-            <c:when test="${not empty sessionScope.carrello.contenuto}&&${sessionScope.utente == null}">
-                <form action="signup.jsp">
-                    <input type="submit" value="Accedi">
-                </form>
+            <c:when test="${not empty sessionScope.carrello.contenuto && sessionScope.utente == null}">
+                <a class="btn btn-primary" href="login.jsp">Accedi</a>
             </c:when>
-            <c:when test="${not empty sessionScope.carrello.contenuto} && ${sessionScope.utente != null}">
+            <c:when test="${not empty sessionScope.carrello.contenuto && sessionScope.utente != null}">
                 <form action="ordina" method="post">
                     <input type="submit" value="Ordina">
                 </form>

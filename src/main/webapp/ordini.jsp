@@ -12,16 +12,30 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.js"></script>
     <title>Ordini</title>
     <jsp:include page="/WEB-INF/header.jsp"/>
+    <%
+        Utente u= (Utente) session.getAttribute("utente");
+        if(u==null){
+            String redirectURL = ".";
+            response.sendRedirect(redirectURL);
+        }
+    %>
 </head>
 <body>
-<c:forEach items="${sessionScope.ordini}" var="elem">
-    <div id="${elem.ordineId}">
-        ${elem.indirizzo}
-        ${elem.data}
-        <c:forEach items="${elem.contenuto}" var="prod">
-            ${prod.key.nome}
-        </c:forEach>
+<div class="container text-center">
+    <div class="row">
+        <div class="col">
+            Ordini
+        </div>
     </div>
-</c:forEach>
+    <c:forEach items="${sessionScope.ordini}" var="elem">
+        <div id="${elem.ordineId}" class="row">
+            ${elem.indirizzo}
+            ${elem.data}
+            <c:forEach items="${elem.contenuto}" var="prod">
+                ${prod.key.nome}
+            </c:forEach>
+        </div>
+    </c:forEach>
+</div>
 </body>
 </html>

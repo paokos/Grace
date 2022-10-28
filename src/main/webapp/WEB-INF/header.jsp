@@ -3,13 +3,9 @@
 <head>
     <title>Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.js"></script>
     <script src="resources/js/ricercaAjax.js"></script>
 </head>
 <body>
-<!--
 <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="home">Grace</a>
@@ -31,20 +27,20 @@
                         </a>
                         <ul class="dropdown-menu" id="utenteDd">
                             <li><a class="dropdown-item" href="ordini">Ordini</a></li>
-                            <li><a class="dropdown-item" href="profilo">Profilo</a></li>
+                            <li><a class="dropdown-item" href="profilo.jsp">Profilo</a></li>
                             <li><a class="dropdown-item" href="logout">Logout</a></li>
                         </ul>
                     </div>
                 </c:when>
                 <c:otherwise>
-                    <a class="nav-link" href="login">Login</a>
+                    <a class="nav-link" href="login.jsp">Login</a>
                 </c:otherwise>
             </c:choose>
             <a type="button" class="btn btn-primary" href="carrello.jsp">Carrello</a>
         </div>
     </div>
 </nav>
--->
+<!--
 <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top" >
     <div class="container-fluid">
         <a class="navbar-brand" href="home">Grace</a>
@@ -72,7 +68,7 @@
         </div>
     </div>
 </nav>
-
+-->
 <!--
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
