@@ -11,26 +11,26 @@
 <body>
 <%@include file="WEB-INF/header.jsp"%>
 <nav>
-    <form class="row g-3" action="updateUtente">
+    <form class="row g-3" action="updateSelfUtente" method="post">
         <div class="col-md-4">
             <label for="validationNome" class="form-label">Nome</label>
-            <input name="nome" type="text" class="form-control" id="validationNome" required>
+            <input name="nome" type="text" class="form-control" id="validationNome" value="${utente.nome}" required>
         </div>
         <div class="col-md-4">
             <label for="validationCognome" class="form-label">Cognome</label>
-            <input name="cognome" type="text" class="form-control" id="validationCognome" required>
+            <input name="cognome" type="text" class="form-control" id="validationCognome" value="${utente.cognome}" required>
         </div>
         <div class="col-md-4">
             <label for="validationMail" class="form-label">e-mail</label>
-            <input name="email" type="text" class="form-control" id="validationMail" required>
+            <input name="email" type="text" class="form-control" id="validationMail" value="${utente.email}" required>
         </div>
         <div class="col-md-6">
             <label for="validationIndirizzo" class="form-label">Indirizzo</label>
-            <input name="indirizzo" type="text" class="form-control" id="validationIndirizzo" required>
+            <input name="indirizzo" type="text" class="form-control" id="validationIndirizzo" value="${utente.indirizzo}" required>
         </div>
         <div class="col-md-6">
             <label class="form-label">Nuova Password (opzionale)</label>
-            <input name="newPassword" type="password" class="form-control" required>
+            <input name="newPassword" type="password" class="form-control">
         </div>
         <div class="col-md-6">
             <label for="validationPassword" class="form-label">Inserisci la password per confermare</label>
