@@ -19,7 +19,9 @@ public class ProdottoDAO {
                 p.setPrezzo(rs.getDouble(3));
                 p.setColore(rs.getString(4));
                 p.setTaglia(rs.getString(5));
-                p.setImgsrc(rs.getString(6));
+                p.setDescrizione(rs.getString(6));
+                p.setDisponibili(rs.getInt(7));
+                p.setImgsrc(rs.getString(8));
                 return p;
             }
             return null;
@@ -44,7 +46,8 @@ public class ProdottoDAO {
                 p.setColore(rs.getString(4));
                 p.setTaglia(rs.getString(5));
                 p.setDescrizione(rs.getString(6));
-                p.setImgsrc(rs.getString(7));
+                p.setDisponibili(rs.getInt(7));
+                p.setImgsrc(rs.getString(8));
                 prodotti.add(p);
             }
             con.close();
@@ -137,12 +140,12 @@ public class ProdottoDAO {
     }
 
     public void doUpdateProdotto(Prodotto p) {
-
         try (Connection con = ConPool.getConnection()) {
             Statement st = con.createStatement();
 //            nome, prezzo, colore, taglia, imgsrc
-            String query = "update Prodotto set nome='" + p.getNome() + "', prezzo=" +
-                    p.getPrezzo() + ", colore='" + p.getColore() + "', taglia='" + p.getTaglia() + "', imgsrc='" + p.getImgsrc() + "' where codice=" + p.getCodice() + ";";
+            String query = "update Prodotto set nome='" + p.getNome() + "', prezzo=" + p.getPrezzo() + ", colore='" + p.getColore()
+                    + "', taglia='" + p.getTaglia() + "', descrizione='" + p.getDescrizione() + "', disponibili='" + p.getDisponibili()
+                    + "', imgsrc='" + p.getImgsrc() +"' where codice=" + p.getCodice() + ";";
             st.executeUpdate(query);
         } catch (SQLException e) {
             throw new RuntimeException(e);

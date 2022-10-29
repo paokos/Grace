@@ -8,16 +8,14 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.js"></script>
     <script src="resources/js/ricercaAjax.js"></script>
 
-    <title>Ricerca</title>
+    <title>Ricerca rapida</title>
 </head>
 <body>
 <%@include file="/WEB-INF/header.jsp"%>
 <form oninput="cerca()">
     <input type="text" id="q">
-    <button></button>
 </form>
-<nav id="prodotti">
-
-</nav>
+<div class="row row-cols-1 row-cols-md-3 g-4 align-items-center" id="prodotti">
+</div>
 </body>
 </html>

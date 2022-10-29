@@ -1,10 +1,4 @@
-<%@ page import="model.Utente" %><%--
-  Created by IntelliJ IDEA.
-  User: D'Antuono
-  Date: 25/07/2022
-  Time: 22:11
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="model.Utente" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -16,12 +10,14 @@
             response.sendRedirect(redirectURL);
         }
     %>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.js"></script>
 </head>
 <body>
-<legend>Form aggiornamento</legend>
-
-
+<%@include file="/WEB-INF/header.jsp"%>
+<h3>Aggiorna Utente</h3>
 <form action="updateUtenteServlet" method="post">
     <input type="hidden" name="id" value="${utenteMod.id}"><br/>
     Nome: <input type="text" name="nome" value="${utenteMod.nome}"><br/>

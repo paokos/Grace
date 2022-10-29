@@ -25,7 +25,7 @@ public class addCarrello extends HttpServlet {
         Prodotto p=pd.doRetrieveByCodice(Integer.parseInt(req.getParameter("codice")));
         int presente = c.getQuantProdotto(p);
         int tot=1+presente;
-        if(tot<=10 && p.getDisponibili()<=tot) {
+        if(tot<=10 && p.getDisponibili()>=tot) {
             c.addProdotto(p, 1);
             cd.addToCart(p, c, 1);
         }

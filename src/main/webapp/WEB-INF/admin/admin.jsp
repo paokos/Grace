@@ -19,6 +19,7 @@
         response.sendRedirect(redirectURL);
     }
 %>
+<h3>Pagina da amministratore</h3>
 <form action="showAllUtenti">
     <label>Gestisci clienti</label>
     <input type="submit" value="Mostra">
