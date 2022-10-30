@@ -26,7 +26,7 @@ public class UpdateUtente extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher rd;
         UtenteDAO ud = new UtenteDAO();
-        String address="/WEB-INF/utente-sconosciuto.jsp";
+        String address="/WEB-INF/errorPage.jsp";
         Utente u = ud.doRetrieveById(Integer.parseInt(req.getParameter("id")));
         if(u != null) {
             address = "/WEB-INF/admin/updateUtente.jsp";

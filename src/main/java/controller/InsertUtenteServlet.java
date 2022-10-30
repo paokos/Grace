@@ -16,13 +16,13 @@ import java.io.IOException;
 @WebServlet("/insertUser")
 public class InsertUtenteServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String nome = req.getParameter("nome");
         String cognome = req.getParameter("cognome");
         String indirizzo = req.getParameter("indirizzo");
         String email = req.getParameter("email");
         String pass = req.getParameter("password");
-        Boolean admin = false;
+        boolean admin = false;
 //        Carrello c=((Carrello) req.getSession().getAttribute("Carrello"));
 //        if(c==null)
 //
@@ -35,25 +35,29 @@ public class InsertUtenteServlet extends HttpServlet {
         }
         else {
             pass=PassHash.PasswordHasher(pass);
-            Utente user = new Utente();
-            UtenteDAO service= new UtenteDAO();
-            user.setNome(nome);
-            user.setCognome(cognome);
-            user.setIndirizzo(indirizzo);
-            user.setEmail(email);
-            user.setPass(pass);
-            user.setAdmin(admin);
+            Utente u = new Utente();
+            UtenteDAO ud= new UtenteDAO();
+            u.setNome(nome);
+            u.setCognome(cognome);
+            u.setIndirizzo(indirizzo);
+            u.setEmail(email);
+            u.setPass(pass);
+            u.setAdmin(admin);
             if(req.getSession().getAttribute("Carrello")!=null)
-                user.setCarrello(((Carrello) req.getSession().getAttribute("Carrello")).getCartId());
+                u.setCarrello(((Carrello) req.getSession().getAttribute("Carrello")).getCartId());
             else{
                 Carrello c= new CarrelloDAO().doCreateCarrello();
-                user.setCarrello(c.getCartId());
+                u.setCarrello(c.getCartId());
                 req.getSession().setAttribute("carrello", c);
             }
-            service.doSave(user);
+            ud.doSave(u);
+            req.getSession().setAttribute("utente", u);
             dest="index.jsp";
-            RequestDispatcher dispatcher = req.getRequestDispatcher(dest);
-            dispatcher.forward(req, resp);
+            resp.sendRedirect(dest);
         }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     }
 }
