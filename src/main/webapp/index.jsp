@@ -14,16 +14,25 @@
 categorie. La scelta della categoria provoca la chiamata di CategoriaServlet lato server.--%>
 <body>
 <%@include file="/WEB-INF/header.jsp"%>
-<div id="header"></div>
-        <form action="categoria">
-        Categoria:
-        <select type="text" name="Categoria">
-            <c:forEach items="${applicationScope.categorie}" var="cat">
-                <option value="${cat.nome}">${cat.nome}</option>
-            </c:forEach>
-        </select>
-        <input type="submit" value="Vai"/>
-    </form>
-    ${applicationScope.categorie}
+<div class="container main h-100 pt-4 pb-4">
+    <div class="row d-flex justify-content-center h-100">
+        <div class="col-10">
+            <div class="d-flex justify-content-between mb-4">
+                <h3 class="text-black">CATEGORIE:</h3>
+            </div>
+            <div class="row">
+                <c:forEach items="${applicationScope.categorie}" var="cat">
+                    <div class="col-auto col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title text-center"><a href="categoria?Categoria=${cat.nome}" class="card-title stretched-link categoria">${cat.nome}</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

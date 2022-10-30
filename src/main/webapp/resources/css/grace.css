@@ -1,7 +1,14 @@
-body {
-    background-color: #D7D8D9;
+html, body {
+    margin:0;
+    padding:0;
+    background-color: #2980B9;
+    height: 100%;
 }
 
+.main{
+    background-color: #ECF0F1;
+    /*height: 100%;*/
+}
 .btn-prodotto {
     background-color: #3498DB;
     --bs-btn-hover-bg: #2C3E50;
@@ -9,19 +16,32 @@ body {
     --bs-btn-border-color: none;
 }
 .img-card-prodotto{
-    object-fit: cover; /* Do not scale the image */
-    object-position: center; /* Center the image within the element */
+    object-fit: cover;
+    object-position: center;
     width: 100%;
     max-height: 250px;
 }
-
+.img-prodotto{
+    max-height: 500px;
+}
 .card-prodotto{
     color: #2C3E50
+}
 
-    #2980B9
-    #3498DB
-    #ECF0F1
-    #E74C3C
+.prodotto-disponibile{
+    color: forestgreen;
+}
+
+.prodotto-non-disponibile{
+    color: #E74C3C;
+}
+
+.categoria{
+    text-decoration: none;
+    :hover: color:blue;
+}
+.prezzo{
+
 }
 
 .btn-ordina{

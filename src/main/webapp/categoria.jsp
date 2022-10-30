@@ -15,15 +15,15 @@
 </head>
 <body>
 <%@include file="/WEB-INF/header.jsp"%>
-<%--<div class="row row-cols-1 row-cols-md-3 g-4 align-items-center w-75">--%>
-    <div class="container h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-10">
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h3 class="fw-normal mb-0 text-black">${requestScope.categoria.nome}</h3>
-                </div>
+<div class="container main h-100 pt-4 pb-4">
+    <div class="row d-flex justify-content-center h-100">
+        <div class="col-10">
+            <div class="d-flex justify-content-between mb-4">
+                <h3 class="text-black">${requestScope.categoria.nome}</h3>
+            </div>
+            <div class="row">
                 <c:forEach items="${requestScope.prodotti}" var="prod">
-                    <div class="col col-md-2 col-lg-2 col-xl-2">
+                    <div class="col-auto col-sm-6 col-md-4 col-lg-4 col-xl-4 mb-4">
                     <div class="card h-100" id="${prod.codice}">
                         <img src="${prod.imgsrc}" class="card-img-top img-fluid rounded-3 img-card-prodotto" alt="...">
                         <div class="card-body">
@@ -39,6 +39,6 @@
             </div>
         </div>
     </div>
-<%--</div>--%>
+</div>
 </body>
 </html>

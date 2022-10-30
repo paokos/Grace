@@ -143,7 +143,6 @@ public class UtenteDAO {
     }
 
     public void doUpdateUtente(Utente u){
-
         try (Connection con = ConPool.getConnection()) {
             Statement st = con.createStatement();
                 String query = "update grace.utente set nome='" + u.getNome() + "', cognome='" + u.getCognome()+

@@ -11,18 +11,30 @@
 </head>
 <body>
 <%@include file="/WEB-INF/header.jsp"%>
-<div class="row row-cols-1 row-cols-md-3 g-4 align-items-center">
-    <c:forEach items="${requestScope.risultati}" var="prod">
-        <div class="col">
-            <div class="card h-100" id="${prod.codice}">
-                <img src="${prod.imgsrc}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">${prod.nome}</h5>
-                    <a href="prodotto?codice=${prod.codice}" class="btn btn-outline-secondary stretched-link">Visualizza</a>
-                </div>
+<div class="container main h-100 pt-4 pb-4">
+    <div class="row d-flex justify-content-center">
+        <div class="col-10">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="text-black">Risultati:</h3>
+            </div>
+            <div class="row">
+                <c:forEach items="${requestScope.risultati}" var="prod">
+                    <div class="col-auto col-sm-6 col-md-4 col-lg-4 col-xl-4 mb-4">
+                        <div class="card h-100" id="${prod.codice}">
+                            <img src="${prod.imgsrc}" class="card-img-top img-fluid rounded-3 img-card-prodotto">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">${prod.nome}</h5>
+                                <div class="card-text">
+                                        ${prod.prezzo}€
+                                    <a href="prodotto?codice=${prod.codice}" class="btn btn-primary stretched-link btn-prodotto">Visualizza</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
             </div>
         </div>
-    </c:forEach>
+    </div>
 </div>
 </body>
 </html>

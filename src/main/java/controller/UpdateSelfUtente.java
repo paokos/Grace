@@ -21,7 +21,7 @@ public class UpdateSelfUtente extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Utente u= (Utente) req.getSession().getAttribute("utente"), uMod=new Utente();
         UtenteDAO ud= new UtenteDAO();
-        String dest = "/home";
+        String dest = "home";
         if(PassHash.PasswordHasher(req.getParameter("password")).equals(u.getPass())){
             uMod.setId(u.getId());
             uMod.setAdmin(u.getAdmin());
@@ -47,10 +47,10 @@ public class UpdateSelfUtente extends HttpServlet {
             else
                 uMod.setIndirizzo(u.getIndirizzo());
             if (!req.getParameter("newPassword").equals("")){
-                uMod.setNome(PassHash.PasswordHasher(req.getParameter("newPassword")));
+                uMod.setPass(PassHash.PasswordHasher(req.getParameter("newPassword")));
             }
             else
-                uMod.setNome(u.getPass());
+                uMod.setPass(u.getPass());
             ud.doUpdateUtente(uMod);
             req.getSession().setAttribute("utente", uMod);
             resp.sendRedirect(dest);
@@ -60,6 +60,6 @@ public class UpdateSelfUtente extends HttpServlet {
             req.setAttribute("updateErr", "Password non valida");
             req.getRequestDispatcher(dest).forward(req, resp);
         }
-        resp.sendRedirect(dest);
+//        resp.sendRedirect(dest);
     }
 }

@@ -11,7 +11,7 @@
 </head>
 <body>
 <%@include file="/WEB-INF/header.jsp"%>
-<nav>
+<div class="container main h-100 pt-4 pb-4">
     <form class="row g-3" action="insertUser" method="post">
         <div class="col-md-4">
             <label for="validationNome" class="form-label">Nome</label>
@@ -35,6 +35,6 @@
         </div>
         <button class="btn btn-primary" type="submit">Submit form</button>
     </form>
-</nav>
+</div>
 </body>
 </html>

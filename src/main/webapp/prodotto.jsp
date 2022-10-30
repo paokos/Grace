@@ -1,8 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
 <html>
 <head>
-    <%@include file="/WEB-INF/header.jsp"%>
     <title>${requestScope.prodotto.nome}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.css">
@@ -12,36 +10,37 @@
     <script src="resources/js/imageLoader.js" defer></script>
 </head>
 <body>
-
-<%--<form action="addCarrello">--%>
-<%--    <input type="hidden" name="codice" value="${requestScope.prodotto.codice}">--%>
-<%--    <input type="submit" value="Aggiungi al Carrello">--%>
-<%--</form>--%>
-<div class="container">
-    <div class="row order-lg-1 pe-lg-4 text-center text-lg-start">
-        <h1 class="h3 mb-0">${prodotto.nome}</h1>
+<%@include file="/WEB-INF/header.jsp"%>
+<div class="container main h-100 pt-4 pb-4">
+    <div class="row text-center">
+        <h3 class="mb-0">${prodotto.nome}</h3>
     </div>
-    <div class="col col-lg-7 pe-lg-0 pt-lg-4">
-        <div class="product-gallery-preview order-sm-2">
-            <div class="product">
-                <img class="ms-2 rounded float-left" src="${prodotto.imgsrc}">
-            </div>
-        </div>
+    <div class="row justify-content-center">
+    <div class="col-auto col-lg-7">
+        <img class="ms-2 rounded float-left img-fluid img-prodotto" src="${prodotto.imgsrc}">
     </div>
-    <div class="col col-lg-5 pt-4 pt-lg-0">
-        <div class="product-details ms-auto pb-3">
-            <div class="mb-3"><span class="h3 fw-normal text-accent me-1">$18.<small>99</small></span>
-            </div>
-            <div class="fs-sm mb-4"><span class="text-heading fw-medium me-1">Color:</span><span class="text-muted" id="colorOption">${prodotto.colore}</span></div>
+    <div class="col-auto col-lg-5 pt-4">
+        <div class="ms-auto pb-3">
+            <div class="mb-3">€${prodotto.prezzo}</div>
+            <div class="mb-4">Colore: ${prodotto.colore}
+                <br>Taglia: ${prodotto.taglia}</div>
             <div class="position-relative me-n4 mb-3">
-                <div class="prodotto-disponibile mt-n1">Product available</div>
+                <c:choose>
+                    <c:when test="${prodotto.disponibili>0}">
+                        <div class="prodotto-disponibile mt-n1">Prodotto Disponibile</div>
+                        <form class="mb-auto" action="addCarrello" method="post">
+                            <input type="hidden" name="codice" value="${prodotto.codice}">
+                            <button class="btn btn-primary btn-shadow d-block w-100" type="submit">Aggiungi al Carrello</button>
+                        </form>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="prodotto-non-disponibile">Prodotto non disponibile</div>
+                        <button class="btn btn-primary btn-shadow d-block w-100" disabled>Aggiungi al Carrello</button>
+                    </c:otherwise>
+                </c:choose>
             </div>
-            <span class="">Size: ${prodotto.taglia}</span>
-            <form class="mb-auto" action="addCarrello" method="post">
-                <input type="hidden" name="codice" value="${prodotto.codice}">
-                <input class="btn btn-primary btn-shadow d-block w-100" type="submit">Aggiungi al Carrello</input>
-            </form>
         </div>
+    </div>
     </div>
     <div class="row">
         <h6 class="">Descrizione</h6>

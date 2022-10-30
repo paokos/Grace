@@ -20,6 +20,8 @@
 </head>
 <body>
 <%@include file="/WEB-INF/header.jsp"%>
+<div class="container main pt-4 pb-4">
+
 <h1>Gestione degli utenti</h1>
 <table class="table">
     <thead>
@@ -53,6 +55,7 @@
     </c:forEach>
     </tbody>
 </table>
+</div>
 
 </body>
 </html>

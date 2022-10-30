@@ -45,52 +45,89 @@
         </div>
     </div>
 </nav>
-<div class="card card-prodotto h-100">
-    <img class="card-img-top" src="resources/img/img.png">
-         <div class="card-body">
-            <h5 class="card-title">gazzè</h5>
-            <div class="btn btn-outline-secondary btn-prodotto stretched-link">AO</div>
-         </div>
-</div>
+<!--<div class="card card-prodotto h-100">-->
+<!--    <img class="card-img-top" src="resources/img/img.png">-->
+<!--         <div class="card-body">-->
+<!--            <h5 class="card-title">gazzè</h5>-->
+<!--            <div class="btn btn-outline-secondary btn-prodotto stretched-link">AO</div>-->
+<!--         </div>-->
+<!--</div>-->
+<!--<div class="container h-100">-->
+<!--    <div class="row d-flex justify-content-center align-items-center h-100">-->
+<!--        <div class="col-10">-->
+<!--            <div class="d-flex justify-content-between align-items-center mb-4">-->
+<!--                <h3 class="fw-normal mb-0 text-black">Carrello</h3>-->
+<!--            </div>-->
+<!--            <div class="card rounded-3 mb-4">-->
+<!--                <div class="card-body p-4">-->
+<!--                    <div class="row d-flex justify-content-between align-items-center">-->
+<!--                        <div class="col-md-2 col-lg-2 col-xl-2">-->
+<!--                            <a href="prodotto?codice=${elem.codice}">-->
+<!--                                <img src="${elem.key.imgsrc}"-->
+<!--                                    class="img-fluid rounded-3">-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                        <div class="col-md-3 col-lg-3 col-xl-3">-->
+<!--                            <a href="prodotto?codice=${elem.codice}" class="lead fw-normal mb-2 text-decoration-none">${elem.key.nome}</a>-->
+<!--                            <p><span class="text-muted">Taglia: </span>${elem.key.taglia}-->
+<!--                                <span class="text-muted">Colore: </span>${elem.key.colore}-->
+<!--                                <span class="text-muted">Quantità: </span>${elem.value}</p>-->
+<!--                        </div>-->
+<!--                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">-->
+<!--                            <h5 class="mb-0">${elem.key.prezzo}</h5>-->
+<!--                        </div>-->
+<!--                        <div class="col-md-1 col-lg-1 col-xl-1 text-end">-->
+<!--                            <form action="removeProdotto">-->
+<!--                                <input type="hidden" name="prodotto" value="${elem.key.codice}">-->
+<!--                                <button class="btn" type="submit" value="Rimuovi">X</button>-->
+<!--                            </form>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="card text-end">-->
+<!--                <div class="card-body">-->
+<!--                    <span class="text-muted">Totale:</span>${tot}-->
+<!--                    <button type="button" class="btn btn-ordina btn-lg text-end">Procedi all'ordine</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 <div class="container h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-10">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h3 class="fw-normal mb-0 text-black">Carrello</h3>
+                <h3 class="fw-normal mb-0 text-black">${requestScope.categoria.nome}</h3>
             </div>
-            <div class="card rounded-3 mb-4">
-                <div class="card-body p-4">
-                    <div class="row d-flex justify-content-between align-items-center">
-                        <div class="col-md-2 col-lg-2 col-xl-2">
-                            <a href="prodotto?codice=${elem.codice}">
-                                <img src="${elem.key.imgsrc}"
-                                    class="img-fluid rounded-3">
-                            </a>
+                <div class="row">
+                    <div class="col col-md-4 col-lg-4 col-xl-4 ">
+                        <div class="card h-100" id="${prod.codice}">
+                            <img src="${prod.imgsrc}" class="card-img-top img-fluid rounded-3 img-card-prodotto" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">${prod.nome}</h5>
+                                <div class="card-text">
+                                    ${prod.prezzo}€
+                                    <a href="prodotto?codice=${prod.codice}" class="btn btn-primary stretched-link btn-prodotto">Visualizza</a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-3 col-lg-3 col-xl-3">
-                            <a href="prodotto?codice=${elem.codice}" class="lead fw-normal mb-2 text-decoration-none">${elem.key.nome}</a>
-                            <p><span class="text-muted">Taglia: </span>${elem.key.taglia}
-                                <span class="text-muted">Colore: </span>${elem.key.colore}
-                                <span class="text-muted">Quantità: </span>${elem.value}</p>
-                        </div>
-                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                            <h5 class="mb-0">${elem.key.prezzo}</h5>
-                        </div>
-                        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                            <form action="removeProdotto">
-                                <input type="hidden" name="prodotto" value="${elem.key.codice}">
-                                <button class="btn" type="submit" value="Rimuovi">X</button>
-                            </form>
+                    </div>
+                    <div class="col col-md-2 col-lg-2 col-xl-2">
+                    <div class="card h-100" id="${prod.codice}">
+                        <img src="${prod.imgsrc}" class="card-img-top img-fluid rounded-3 img-card-prodotto" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">${prod.nome}</h5>
+                            <div class="card-text">
+                                ${prod.prezzo}€
+                                <a href="prodotto?codice=${prod.codice}" class="btn btn-primary stretched-link btn-prodotto">Visualizza</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="card text-end">
-                <div class="card-body">
-                    <span class="text-muted">Totale:</span>${tot}
-                    <button type="button" class="btn btn-ordina btn-lg text-end">Procedi all'ordine</button>
-                </div>
-            </div>
+
+
         </div>
     </div>
 </div>

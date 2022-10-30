@@ -10,6 +10,7 @@
 </head>
 <body>
 <%@include file="/WEB-INF/header.jsp"%>
+<div class="container main pt-4 pb-4">
 <h3>Aggiorna Prodotto</h3>
 <form action="updateProdottoServlet" method="post">
     <input type="hidden" name="codice" value="${prodottoMod.codice}"><br/>
@@ -22,5 +23,6 @@
     Link immagine: <input type="text" name="imgsrc" value="${prodottoMod.imgsrc}"><br/>
     <input type="submit" value="Salva Modifica">
 </form>
+</div>
 </body>
 </html>

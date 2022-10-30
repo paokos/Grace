@@ -17,7 +17,6 @@ public class ShowAllProdotti extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         this.doGet(req, resp);
     }
 
@@ -25,19 +24,12 @@ public class ShowAllProdotti extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         List<Prodotto> prodotti;
-
         ProdottoDAO pd = new ProdottoDAO();
-
         String address = "/WEB-INF/admin/showAllProdotti.jsp";
-
         RequestDispatcher rd;
-
         prodotti = pd.doRetrieveAll();
-
         req.setAttribute("prodotti", prodotti);
-
         rd = req.getRequestDispatcher(address);
-
         rd.forward(req, resp);
     }
 }

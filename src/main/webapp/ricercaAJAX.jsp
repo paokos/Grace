@@ -13,10 +13,16 @@
 </head>
 <body>
 <%@include file="/WEB-INF/header.jsp"%>
-<form oninput="cerca()">
-    <input type="text" id="q">
-</form>
-<div class="row row-cols-1 row-cols-md-3 g-4 align-items-center" id="prodotti">
+<div class="container main h-100 pt-4 pb-4">
+    <div class="row d-flex justify-content-center">
+        <div class="col-10">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="text-black">Risultati:</h3>
+            </div>
+            <input class="form-control mb-5" oninput="cerca()" type="search" placeholder="Digita" id="q">
+            <div class="row row-cols-1 row-cols-md-3 g-4 align-items-center" id="prodotti"></div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

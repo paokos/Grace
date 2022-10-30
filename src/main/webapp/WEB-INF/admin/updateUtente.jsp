@@ -18,6 +18,8 @@
 </head>
 <body>
 <%@include file="/WEB-INF/header.jsp"%>
+<div class="container main pt-4 pb-4">
+
 <h3>Aggiorna Utente</h3>
 <form action="updateUtenteServlet" method="post">
     <input type="hidden" name="id" value="${utenteMod.id}"><br/>
@@ -30,6 +32,6 @@
     Carrello: <input type="text" name="carrello" value="${utenteMod.carrello}"><br/>
     <input type="submit" value="Salva Modifica">
 </form>
-
+</div>
 </body>
 </html>

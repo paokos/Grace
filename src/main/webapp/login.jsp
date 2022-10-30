@@ -12,31 +12,21 @@
 </head>
 <body>
 <%@include file="/WEB-INF/header.jsp"%>
-<nav>
-    <form class="row g-3" action="login" method="post">
-        <div class="col-md-4">
-            <label for="validationMail" class="form-label">e-mail</label>
+<div class="container main h-100 pt-4 pb-4">
+    <form class="row g-3 justify-content-center" action="login" method="post">
+        <div class="col-sm-3 mb-3 form-floating">
             <input name="email" type="text" class="form-control" id="validationMail" required>
+            <label for="validationMail" class="form-label">e-mail</label>
         </div>
-        <div class="col-md-6">
-            <label for="validationPassword" class="form-label">Password</label>
+        <div class="col-sm-3 form-floating mb-3">
             <input name="password" type="password" class="form-control" id="validationPassword" required>
+            <label for="validationPassword" class="form-label">Password</label>
         </div>
-            <button class="btn btn-primary" type="submit" value="login" method="post">Submit form</button>
-        </div>
+        <button class="btn btn-outline-primary col-1" type="submit" value="login">Accedi</button>
     </form>
-</nav>
-<small>
-    Non sei ancora iscritto? <a href="signup.jsp">Iscriviti ora!</a>
-</small>
-<%--${requestScope.loginErr}--%>
-<%--<div class="align-content-center">--%>
-<%--        <form action="login">--%>
-<%--        <input type="text" name="email"/><br/>--%>
-<%--        <input type="text" name="password"/><br/>--%>
-<%--        <input type="submit" value="login">--%>
-<%--    </form>--%>
-<%--    ${sessionScope.utente.nome}--%>
-<%--</div>--%>
+    <small>
+        Non sei ancora iscritto? <a href="signup.jsp" class="text-decoration-none">Iscriviti ora!</a>
+    </small>
+</div>
 </body>
 </html>

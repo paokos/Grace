@@ -1,18 +1,17 @@
 package controller;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import model.Carrello;
-import model.Ordine;
-import model.OrdineDAO;
-import model.Utente;
+import model.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet("/ordini")
 public class OrdiniServlet extends HttpServlet {
@@ -25,7 +24,9 @@ public class OrdiniServlet extends HttpServlet {
         OrdineDAO od=new OrdineDAO();
         ArrayList<Ordine> ordini;
         ordini=od.doRetriveByUtente(u.getId());
-        session.setAttribute("ordini", ordini);
-        response.sendRedirect("ordini.jsp");
+        RequestDispatcher rd;
+        request.setAttribute("ordini", ordini);
+        rd = request.getRequestDispatcher("ordini.jsp");
+        rd.forward(request, response);
     }
 }

@@ -1,7 +1,10 @@
 package model;
 
+import com.oracle.wls.shaded.org.apache.xpath.axes.HasPositionalPredChecker;
+
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class OrdineDAO {
@@ -97,18 +100,44 @@ public class OrdineDAO {
     public ArrayList<Ordine> doRetriveByUtente(int user){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
-                    con.prepareStatement("SELECT ordineID, indirizzo, data FROM ordine WHERE utente=?");
+                    con.prepareStatement("SELECT o.ordineID, o.indirizzo, o.data " +
+                            "FROM ordine o where utente=? order by o.ordineID desc;");
             ps.setInt(1, user);
             ResultSet rs = ps.executeQuery();
             ArrayList<Ordine> ordini=new ArrayList<>();
-            if (rs.next()) {
-                Ordine o = new Ordine();
+            HashMap<Prodotto, Integer> p;
+            Ordine o;
+            while(rs.next()) {
+                o=new Ordine();
+                p=doRetriveContenuto(rs.getInt(1));
+                o.setContenuto(p);
                 o.setOrdineId(rs.getInt(1));
                 o.setIndirizzo(rs.getString(2));
                 o.setData(rs.getDate(3));
                 ordini.add(o);
             }
             return ordini;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public HashMap<Prodotto,Integer> doRetriveContenuto(int ord){
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps =
+                    con.prepareStatement("SELECT op.prod, p.nome, op.quantita, op.prezzo " +
+                            "FROM ordpro op, prodotto p where prod=codice and ord=?;");
+            ps.setInt(1, ord);
+            ResultSet rs = ps.executeQuery();
+            HashMap<Prodotto, Integer> p=new HashMap<>();
+            Prodotto pt;
+            while(rs.next()) {
+                pt=new Prodotto();
+                pt.setCodice(rs.getInt(1));
+                pt.setNome(rs.getString(2));
+                pt.setPrezzo(rs.getDouble(4));
+                p.put(pt, rs.getInt(3));
+            }
+            return p;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

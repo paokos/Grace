@@ -20,15 +20,18 @@
         response.sendRedirect(redirectURL);
     }
 %>
-<h3>Pagina da amministratore</h3>
-<form action="showAllUtenti">
-    <label>Gestisci clienti</label>
-    <input type="submit" value="Mostra">
-</form>
+<div class="container main h-100 pt-4 pb-4">
+    <h3>Pagina da amministratore</h3>
+    <form action="showAllUtenti">
+        <label>Gestisci clienti</label>
+        <button class="btn btn-info" type="submit">Mostra</button>
+    </form>
+    <br>
+    <form action="showAllProdotti">
+        <label>Gestisci prodotti</label>
+        <button class="btn btn-info" type="submit">Mostra</button>
+    </form>
+</div>
 
-<form action="showAllProdotti">
-    <label>Gestisci prodtti</label>
-    <input type="submit" value="Mostra">
-</form>
 </body>
 </html>
