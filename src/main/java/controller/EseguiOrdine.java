@@ -36,7 +36,7 @@ public class EseguiOrdine extends HttpServlet {
         cd.svuotaCart(c);
         c.svuotaCarrello();
         session.setAttribute("carrello", c);
-        resp.sendRedirect("ordini.jsp");
+        resp.sendRedirect("ordini");
     }
 
     @Override

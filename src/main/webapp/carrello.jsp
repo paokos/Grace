@@ -13,9 +13,9 @@
 <body>
 <%@include file="/WEB-INF/header.jsp"%>
 <div class="container main h-100 pt-4 pb-4">
-    <div class="row d-flex justify-content-center align-items-center h-100">
+    <div class="row d-flex justify-content-center h-100">
         <div class="col-10">
-            <div class="d-flex justify-content-between align-items-center mb-4">
+            <div class="d-flex justify-content-between mb-4">
                 <h3 class="fw-normal mb-0 text-black">Carrello</h3>
             </div>
             <c:set var="tot" value="${0}"/>
