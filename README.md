@@ -4,8 +4,8 @@ possibile con categorie e stili dal casual allo streetwear all’abbigliamento p
 
 Sviluppato secondo il modello three tier, deployato su Tomcat
 
-Database: MySQL
+Database gestito attraverso MySQL
 
-Business Layer: Java con utilizzo di classi Data-Access-Objects
+Business Logic gestita con Java con utilizzo di librerie di Jakarta per le servlet
 
-Presentation Layer: HTML5 + CSS + JavaScript + AJAX
+Per la presentazione sono state utilizzate pagine JSP con HTML, CSS, JavaScript per l'interattività delle pagine, AJAX e JSON per la comunicazione asincrona
